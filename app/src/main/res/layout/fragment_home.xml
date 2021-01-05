@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ControlFragment"
+        android:background="@color/backgroundcolor"
+        >
+
+        <!--    <androidx.recyclerview.widget.RecyclerView-->
+        <!--        android:id="@+id/dataRecyclerview"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content" />-->
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fragmentabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:tabIconTint="@color/colorselectedicon"
+            app:tabIndicator="@color/backgroundcolor"
+            app:tabSelectedTextColor="@color/colorselectedicon"
+            app:tabTextAppearance="@style/CustomTabText"
+            app:tabMode="auto"
+            >
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragmentabs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+
+<!--    &lt;!&ndash;    <HorizontalScrollView&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        android:layout_height="@dimen/main_iconScrollbar"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;        app:layout_constraintVertical_bias="1.0">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;        <LinearLayout&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:layout_width="wrap_content"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
+<!--    &lt;!&ndash;            android:orientation="horizontal">&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView2"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_home" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_account" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView4"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_photo" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView5"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_video" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView6"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_list" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView7"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_chat" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView3"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_help" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView8"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_addmore" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;            <ImageView&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:id="@+id/imageView12"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_width="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_height="@dimen/main_iconScroll"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:layout_weight="@dimen/main_iconweight"&ndash;&gt;-->
+<!--    &lt;!&ndash;                android:src="@drawable/ic_noti" />&ndash;&gt;-->
+
+<!--    &lt;!&ndash;        </LinearLayout>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </HorizontalScrollView>&ndash;&gt;-->

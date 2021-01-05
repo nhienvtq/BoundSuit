@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorselectedicon">#d32626</color>
+    <color name="colorunselectedicon">#e5c0c3</color>
+    <color name="backgroundcolor">#f6ecf0</color>
+    <color name="tabbgcolor">#f6ab6c</color>
+</resources>
