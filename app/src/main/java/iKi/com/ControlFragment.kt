@@ -1,26 +1,17 @@
 package iKi.com
 
 import android.annotation.SuppressLint
-import android.graphics.BlendMode
-import android.graphics.BlendModeColorFilter
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorInt
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import iKi.com.PagerFragments.FragmentOne
-import iKi.com.PagerFragments.FragmentTwo
+import iKi.com.PagerFragments.*
 import iKi.com.databinding.FragmentControlBinding
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_control.*
 
 
 class ControlFragment : Fragment() {
@@ -41,47 +32,46 @@ class ControlFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf<Fragment>(
-            FragmentOne(),      //1
-            FragmentTwo()       //2
+            HomeFragment(),                     //1
+            ProfileFragment(),                  //2
+            MessageFragment(),                  //3
+            NotificationFragment(),             //4
+            PhotoFragment(),                    //5
+            VideoFragment(),                    //6
+
         )
-        val titleList = arrayListOf<String>(
-            "Home",
-            "Profile"
+        val icontitleList = arrayListOf<iconBinding>(
+            iconBinding("Home", R.drawable.ic_home),            //1
+            iconBinding("Profile", R.drawable.ic_account),      //2
+            iconBinding("Message", R.drawable.ic_chat),         //3
+            iconBinding("Notification", R.drawable.ic_noti),    //4
+            iconBinding("Photo", R.drawable.ic_photo),          //5
+            iconBinding("Live", R.drawable.ic_video),          //6
         )
-        val iconList = arrayListOf<Int>(
-            R.drawable.ic_home,
-            R.drawable.ic_account
-        )
+
         binding.viewPager.adapter = ViewPagerAdapter(
-            fragmentList,
-            requireActivity().supportFragmentManager,
-            lifecycle
+            fragmentList,requireActivity().supportFragmentManager,lifecycle
         )
 
         tabLayout = binding.fragmentabs
 
-
-
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->
             for (i in 0..fragmentList.size){
-                tab.text = titleList[position]
-                tab.setIcon(iconList[position])
+                tab.text = icontitleList[position].getTitle()
+                tab.setIcon(icontitleList[position].getIcon())
             }
         }.attach()
-            tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    tab?.icon?.alpha = 255
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    tab?.icon?.alpha = 50
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    TODO("Not yet implemented")
-                }
-
-            })
+        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.icon?.alpha = 255
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.icon?.alpha = 50
+            }
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                TODO("Not yet implemented")
+            }
+        })
 
 //        initRecyclerView()
     }
@@ -93,6 +83,13 @@ class ControlFragment : Fragment() {
 //        binding.dataRecyclerview.layoutManager = LinearLayoutManager(requireContext())
 //        Re_adapter.submitList(datasource.createDataSet())
 //    }
+}
+
+class iconBinding(var title: String, var icon: Int){
+    @JvmName("getTitle1")
+    fun getTitle():String = title
+    @JvmName("getIcon1")
+    fun getIcon():Int = icon
 }
 
 

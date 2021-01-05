@@ -7,15 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import iKi.com.R
 
-class FragmentTwo : Fragment() {
-
+class NotificationFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_two, container, false)
+        return inflater.inflate(R.layout.fragment_notification, container, false)
     }
 
 }

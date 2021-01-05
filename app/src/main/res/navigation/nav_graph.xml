@@ -10,11 +10,11 @@
         android:label="fragment_flash_logo"
         tools:layout="@layout/fragment_flash_logo" >
         <action
-            android:id="@+id/action_flashLogoFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_flashLogoFragment_to_controlFragment"
+            app:destination="@id/controlFragment" />
     </fragment>
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/controlFragment"
         android:name="iKi.com.ControlFragment"
-        android:label="HomeFragment" />
+        android:label="ControlFragment" />
 </navigation>
