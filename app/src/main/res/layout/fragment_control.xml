@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ControlFragment"
-        android:background="@color/backgroundcolor"
+        android:background="@color/backgroundControlcolor"
         >
 
         <!--    <androidx.recyclerview.widget.RecyclerView-->
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:tabIconTint="@color/colorselectedicon"
-            app:tabIndicator="@color/backgroundcolor"
+            app:tabIndicator="@color/backgroundControlcolor"
             app:tabSelectedTextColor="@color/colorselectedicon"
             app:tabTextAppearance="@style/CustomTabText"
             app:tabMode="auto"

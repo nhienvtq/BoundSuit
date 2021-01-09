@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import iKi.com.PagerFragments.*
@@ -72,17 +73,7 @@ class ControlFragment : Fragment() {
                 //doing nothing
             }
         })
-
-//        initRecyclerView()
     }
-
-
-//    private fun initRecyclerView(){
-//        val Re_adapter = RecyclerviewAdapter()
-//        binding.dataRecyclerview.adapter = Re_adapter
-//        binding.dataRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-//        Re_adapter.submitList(datasource.createDataSet())
-//    }
 }
 
 class iconBinding(var title: String, var icon: Int){
