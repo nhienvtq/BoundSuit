@@ -16,5 +16,29 @@
     <fragment
         android:id="@+id/controlFragment"
         android:name="iKi.com.ControlFragment"
-        android:label="ControlFragment" />
+        android:label="ControlFragment" >
+        <action
+            android:id="@+id/action_controlFragment_to_addProfileFragment"
+            app:destination="@id/addProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="iKi.com.PagerFragments.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_addProfileFragment"
+            app:destination="@id/addProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProfileFragment"
+        android:name="iKi.com.AddProfileFragment"
+        android:label="fragment_add_profile"
+        tools:layout="@layout/fragment_add_profile" >
+        <action
+            android:id="@+id/action_addProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_addProfileFragment_to_controlFragment"
+            app:destination="@id/controlFragment" />
+    </fragment>
 </navigation>

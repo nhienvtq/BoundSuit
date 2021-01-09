@@ -2,6 +2,7 @@ package iKi.com
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +38,7 @@ class ControlFragment : Fragment() {
             MessageFragment(),                  //3
             NotificationFragment(),             //4
             PhotoFragment(),                    //5
-            VideoFragment(),                    //6
-
+            VideoFragment()                    //6
         )
         val icontitleList = arrayListOf<iconBinding>(
             iconBinding("Home", R.drawable.ic_home),            //1
@@ -46,7 +46,7 @@ class ControlFragment : Fragment() {
             iconBinding("Message", R.drawable.ic_chat),         //3
             iconBinding("Notification", R.drawable.ic_noti),    //4
             iconBinding("Photo", R.drawable.ic_photo),          //5
-            iconBinding("Live", R.drawable.ic_video),          //6
+            iconBinding("Live", R.drawable.ic_video)           //6
         )
 
         binding.viewPager.adapter = ViewPagerAdapter(
@@ -69,7 +69,7 @@ class ControlFragment : Fragment() {
                 tab?.icon?.alpha = 50
             }
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                TODO("Not yet implemented")
+                //doing nothing
             }
         })
 
