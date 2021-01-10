@@ -13,12 +13,12 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import iKi.com.PagerFragments.*
 import iKi.com.databinding.FragmentControlBinding
-import kotlinx.android.synthetic.main.fragment_control.*
 
 
 class ControlFragment : Fragment() {
     private lateinit var binding: FragmentControlBinding
     private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +55,7 @@ class ControlFragment : Fragment() {
         )
 
         tabLayout = binding.fragmentabs
-
+        viewPager = binding.viewPager
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->
             for (i in 0..fragmentList.size){
                 tab.text = icontitleList[position].getTitle()

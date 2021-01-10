@@ -1,24 +1,34 @@
 package iKi.com.profileData
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import iKi.com.R
-import kotlinx.android.synthetic.main.profile_recyclerview_section.view.*
+import iKi.com.databinding.ProfileRecyclerviewSectionBinding
+
 
 class profileRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
     private var listitems: List<Profile> = ArrayList()
-
+    private lateinit var binding: ProfileRecyclerviewSectionBinding
+    private lateinit var layoutInflater: LayoutInflater
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return RecyclerViewHolder (LayoutInflater.from(parent.context).inflate(R.layout.profile_recyclerview_section,parent,false))
+        layoutInflater = LayoutInflater.from(parent.getContext())
+        binding = DataBindingUtil.inflate(
+            layoutInflater,
+            R.layout.profile_recyclerview_section,
+            parent,
+            false
+        )
+        return RecyclerViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder){
-            is RecyclerViewHolder ->{ holder.bind(listitems.get(position))}
+            is RecyclerViewHolder -> {
+                holder.bind(listitems.get(position))
+            }
         }
     }
 
@@ -31,18 +41,20 @@ class profileRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
         notifyDataSetChanged()
     }
 
-    class RecyclerViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-        val textName = itemView.nameTextView
-        val textEmail = itemView.emailTextView
-        val textPhone = itemView.phoneTextView
-        val imageProfile = itemView.avatarImage
-        val imageGender = itemView.genderImage
 
+    class RecyclerViewHolder constructor(binding: ProfileRecyclerviewSectionBinding):
+        RecyclerView.ViewHolder(binding.getRoot()){
+        val textName = binding.nameTextView
+        val textEmail = binding.emailTextView
+        val textPhone = binding.phoneTextView
+        val imageProfile = binding.avatarImage
+        val imageGender = binding.genderImage
         fun bind(profile: Profile){
             textName.setText(profile.Name)
             textEmail.setText(profile.Email)
             textPhone.setText(profile.PhoneNumber.toString())
             imageProfile.setImageResource(profile.Image_profile)
+//            imageProfile.setImageBitmap()
             if (profile.Gender == "Male"){
                 val color = Color.parseColor("#7fdbda")
                 imageGender.setColorFilter(color)

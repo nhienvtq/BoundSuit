@@ -75,5 +75,106 @@
             app:layout_constraintStart_toStartOf="@+id/nameTextfield"
             app:layout_constraintTop_toTopOf="@+id/birthdayLabel" />
 
+        <TextView
+            android:id="@+id/nationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Nation:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/birthdayLabel"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/birthdayLabel"
+            app:layout_constraintTop_toBottomOf="@+id/birthdayLabel"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Spinner
+            android:id="@+id/nationSpinner"
+            android:layout_width="203dp"
+            android:layout_height="31dp"
+            app:layout_constraintBottom_toBottomOf="@+id/nationLabel"
+            app:layout_constraintStart_toStartOf="@+id/birthdayTextfield"
+            app:layout_constraintTop_toTopOf="@+id/nationLabel" />
+
+        <TextView
+            android:id="@+id/genderLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Gender"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/nationLabel"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/nationLabel"
+            app:layout_constraintTop_toBottomOf="@+id/nationLabel"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/genderLabel"
+            app:layout_constraintStart_toStartOf="@+id/nationSpinner"
+            app:layout_constraintTop_toTopOf="@+id/genderLabel">
+
+            <RadioButton
+                android:id="@+id/malercheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <RadioButton
+                android:id="@+id/femalecheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Phone:"
+            app:layout_constraintStart_toStartOf="@+id/genderLabel"
+            app:layout_constraintTop_toBottomOf="@+id/genderLabel" />
+
+        <EditText
+            android:id="@+id/phoneTextfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Mobile number"
+            android:inputType="number"
+            app:layout_constraintBottom_toBottomOf="@+id/phoneLabel"
+            app:layout_constraintStart_toStartOf="@+id/radioGroup3"
+            app:layout_constraintTop_toTopOf="@+id/phoneLabel" />
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Email:"
+            app:layout_constraintStart_toStartOf="@+id/phoneLabel"
+            app:layout_constraintTop_toBottomOf="@+id/phoneLabel" />
+
+        <EditText
+            android:id="@+id/emailTextfield"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="youremail@gmail.com"
+            android:inputType="textEmailAddress"
+            app:layout_constraintBottom_toBottomOf="@+id/emailLabel"
+            app:layout_constraintStart_toStartOf="@+id/phoneTextfield"
+            app:layout_constraintTop_toTopOf="@+id/emailLabel" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
