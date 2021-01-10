@@ -11,16 +11,12 @@ import iKi.com.databinding.ProfileRecyclerviewSectionBinding
 
 class profileRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
     private var listitems: List<Profile> = ArrayList()
-    private lateinit var binding: ProfileRecyclerviewSectionBinding
+    private var _binding: ProfileRecyclerviewSectionBinding? = null
+    private val binding get() = _binding!!
     private lateinit var layoutInflater: LayoutInflater
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         layoutInflater = LayoutInflater.from(parent.getContext())
-        binding = DataBindingUtil.inflate(
-            layoutInflater,
-            R.layout.profile_recyclerview_section,
-            parent,
-            false
-        )
+        _binding = DataBindingUtil.inflate(layoutInflater,R.layout.profile_recyclerview_section,parent,false)
         return RecyclerViewHolder(binding)
     }
 

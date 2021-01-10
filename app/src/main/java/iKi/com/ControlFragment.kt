@@ -16,7 +16,8 @@ import iKi.com.databinding.FragmentControlBinding
 
 
 class ControlFragment : Fragment() {
-    private lateinit var binding: FragmentControlBinding
+    private var _binding: FragmentControlBinding? = null
+    private val binding get() = _binding!!
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
 
@@ -26,7 +27,7 @@ class ControlFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_control, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_control, container, false)
         return binding.root
     }
 
@@ -73,6 +74,11 @@ class ControlFragment : Fragment() {
                 //doing nothing
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
 

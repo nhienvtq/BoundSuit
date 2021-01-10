@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
@@ -82,7 +83,7 @@ class AddProfileFragment : Fragment() {
         binding.floatingAddButton.setOnClickListener(){
             var iserror = false
             //Name
-            if (!binding.nameTextfield.text.toString().isNullOrEmpty()) {
+            if (binding.nameTextfield.text.toString().isNotEmpty()) {
                 Name = binding.nameTextfield.text.toString()
             } else {
                 iserror = true
@@ -106,13 +107,14 @@ class AddProfileFragment : Fragment() {
                 Gender = "Female"
             }
             //PhoneNumber
-            if (binding.phoneTextfield.text.toString().toInt() > 0){
+            if (binding.phoneTextfield.text.toString().isNotEmpty()){
                 PhoneNumber = binding.phoneTextfield.text.toString().toInt()
+                Log.i("flowTag", ">" + binding.phoneTextfield.text.toString() + "<")
             } else {
                 PhoneNumber = 0
             }
             //Email
-            if (binding.emailTextfield.toString().isNotEmpty()){
+            if (binding.emailTextfield.text.toString().isNotEmpty()){
                 Email = binding.emailTextfield.text.toString()
             } else {
                 Email = ""

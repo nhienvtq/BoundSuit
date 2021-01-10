@@ -17,12 +17,14 @@ import iKi.com.profileData.ProfileViewModel
 import iKi.com.profileData.profileRecyclerViewAdapter
 
 class ProfileFragment : Fragment() {
-    private lateinit var binding: FragmentProfileBinding
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_profile,container,false)
+    ): View {
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile,container,false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -50,5 +52,10 @@ class ProfileFragment : Fragment() {
         insProfileViewModel.readAllData.observe(viewLifecycleOwner, Observer {
             profile -> profile_adapter.setData(profile)
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
