@@ -3,7 +3,7 @@ package iKi.com.profileData
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "profile_table")
+@Entity(tableName = "profile_Table")
 class Profile(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
@@ -11,7 +11,7 @@ class Profile(
     val Age: Int,
     val Nation: String,
     val Gender: String,
-    val PhoneNumber: Int,
+    val PhoneNumber: String,
     val Email: String,
-    val Image_profile: Int
+    val Image_profile: String
 )

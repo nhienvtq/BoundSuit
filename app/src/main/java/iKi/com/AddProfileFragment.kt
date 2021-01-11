@@ -1,18 +1,31 @@
 package iKi.com
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
+import android.content.ContentResolver
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.drawToBitmap
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import coil.load
+import coil.transform.CircleCropTransformation
 import iKi.com.databinding.FragmentAddProfileBinding
 import iKi.com.profileData.Profile
 import iKi.com.profileData.ProfileViewModel
@@ -26,9 +39,10 @@ class AddProfileFragment : Fragment() {
     private var Age         : Int? = null
     private var Nation      : String? = null
     private var Gender      : String? = null
-    private var PhoneNumber : Int? = null
+    private var PhoneNumber : String? = null
     private var Email       : String? = null
-    private var Image       : Int? = null
+    private var Image       : String? = null
+    private val PICK_IMAGE = 1
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,7 +69,7 @@ class AddProfileFragment : Fragment() {
             requireContext(),
             { _, insYear, insMonth, insDay ->
                 binding.birthdayTextfield.setText("$insDay/${insMonth.plus(1)}/$insYear")
-            }, year,month,day
+            }, year, month, day
         )
         binding.birthdayTextfield.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus){
@@ -63,7 +77,7 @@ class AddProfileFragment : Fragment() {
                 activity?.let { hideSoftKeyboard(it) }
             }
         }
-        binding.birthdayTextfield.setOnTouchListener(){ view: View, motionEvent: MotionEvent ->
+        binding.birthdayTextfield.setOnTouchListener(){ _: View, motionEvent: MotionEvent ->
             when (motionEvent.action){
                 MotionEvent.ACTION_UP -> {
                     CalendarDialog.show()
@@ -73,12 +87,45 @@ class AddProfileFragment : Fragment() {
             return@setOnTouchListener true
         }
 
-        ArrayAdapter.createFromResource(requireContext(), R.array.nation_array,android.R.layout.simple_spinner_dropdown_item).also{
-            adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.nation_array,
+            android.R.layout.simple_spinner_dropdown_item
+        ).also{ adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.nationSpinner.adapter = adapter
         }
 
-        binding.malercheckBox.isChecked = true
+        binding.malecheckBox.isChecked = true
+        binding.profileImageView.load(R.raw.maleavatar){
+            crossfade(true)
+            crossfade(1000)
+            transformations(CircleCropTransformation())
+            size(500)
+        }
+        binding.malecheckBox.setOnClickListener(){
+            binding.profileImageView.load(R.raw.maleavatar){
+                crossfade(true)
+                crossfade(1000)
+                transformations(CircleCropTransformation())
+                size(500)
+            }
+        }
+        binding.femalecheckBox.setOnClickListener(){
+            binding.profileImageView.load(R.raw.femaleavatar){
+                crossfade(true)
+                crossfade(1000)
+                transformations(CircleCropTransformation())
+                size(500)
+            }
+        }
+
+
+        binding.insertPhotoButton.setOnClickListener(){
+            val intent= Intent(Intent.ACTION_PICK)
+            intent.setType("image/*")
+            intent.setAction(Intent.ACTION_GET_CONTENT)
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
+        }
 
         binding.floatingAddButton.setOnClickListener(){
             var iserror = false
@@ -100,18 +147,19 @@ class AddProfileFragment : Fragment() {
             }
             //Nation
             Nation = binding.nationSpinner.selectedItem.toString()
+            //Image
+
             //Gender
-            if (binding.malercheckBox.isChecked == true){
+            if (binding.malecheckBox.isChecked == true){
                 Gender = "Male"
             } else {
                 Gender = "Female"
             }
             //PhoneNumber
             if (binding.phoneTextfield.text.toString().isNotEmpty()){
-                PhoneNumber = binding.phoneTextfield.text.toString().toInt()
-                Log.i("flowTag", ">" + binding.phoneTextfield.text.toString() + "<")
+                PhoneNumber = binding.phoneTextfield.text.toString()
             } else {
-                PhoneNumber = 0
+                PhoneNumber = ""
             }
             //Email
             if (binding.emailTextfield.text.toString().isNotEmpty()){
@@ -120,15 +168,36 @@ class AddProfileFragment : Fragment() {
                 Email = ""
             }
             //Image
-            Image = R.drawable.ic_baseline_face_24
+            Image = ImageBitmapString.BitMapToString(binding.profileImageView.drawable.toBitmap())
 
             if (!iserror){
-                val profile = Profile(0, Name!!, Age!!, Nation!! , Gender!!, PhoneNumber!!,Email!!, Image!!)
+                val profile = Profile(
+                    0,
+                    Name!!,
+                    Age!!,
+                    Nation!!,
+                    Gender!!,
+                    PhoneNumber!!,
+                    Email!!,
+                    Image!!
+                )
                 insProfileViewModel.addProfile(profile)
-                Toast.makeText(context,"Profile added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Profile added", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_addProfileFragment_to_controlFragment)
             }
 //            activity?.findViewById<ViewPager2>(R.id.viewPager)?.currentItem = 1
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK){
+            binding.profileImageView.load(data?.data){
+                crossfade(true)
+                crossfade(1000)
+                transformations(CircleCropTransformation())
+                size(500)
+            }
         }
     }
 

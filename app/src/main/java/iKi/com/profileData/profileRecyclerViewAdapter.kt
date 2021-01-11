@@ -1,10 +1,15 @@
 package iKi.com.profileData
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
+import iKi.com.ImageBitmapString
 import iKi.com.R
 import iKi.com.databinding.ProfileRecyclerviewSectionBinding
 
@@ -45,12 +50,20 @@ class profileRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
         val textPhone = binding.phoneTextView
         val imageProfile = binding.avatarImage
         val imageGender = binding.genderImage
+
+
         fun bind(profile: Profile){
+
             textName.setText(profile.Name)
             textEmail.setText(profile.Email)
-            textPhone.setText(profile.PhoneNumber.toString())
-            imageProfile.setImageResource(profile.Image_profile)
-//            imageProfile.setImageBitmap()
+            textPhone.setText(profile.PhoneNumber)
+//            imageProfile.setImageBitmap(ImageBitmapString.StringToBitMap(profile.Image_profile))
+            imageProfile.load(ImageBitmapString.StringToBitMap(profile.Image_profile)){
+                crossfade(true)
+                crossfade(1000)
+                transformations(CircleCropTransformation())
+                size(500)
+            }
             if (profile.Gender == "Male"){
                 val color = Color.parseColor("#7fdbda")
                 imageGender.setColorFilter(color)

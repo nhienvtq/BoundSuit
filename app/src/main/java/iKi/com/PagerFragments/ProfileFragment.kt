@@ -1,10 +1,13 @@
 package iKi.com.PagerFragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +22,7 @@ import iKi.com.profileData.profileRecyclerViewAdapter
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+    private var optionBtnClick = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,15 +33,68 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
+    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_minus90deg)}
+    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_plus90deg)}
+    private val PopOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_popup)}
+    private val PopClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_popup)}
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.i("flowTag", "ProfileFragment.tracing: 1")
+        binding.floatingOptButton.setOnClickListener(){
+            if (!optionBtnClick){
+                OptBtnOpen()
+            } else {
+                OptBtnClose()
+            }
+        }
         binding.floatingAddButton.setOnClickListener(){
             findNavController().navigate(R.id.action_controlFragment_to_addProfileFragment)
+            binding.floatingAddButton.visibility = View.INVISIBLE
+            binding.floatingDelButton.visibility = View.INVISIBLE
+            optionBtnClick = false
         }
         binding.floatingDelButton.setOnClickListener(){
             insProfileViewModel.delAllProfile()
         }
         initRecyclerView()
+    }
+    private fun OptBtnOpen()
+    {
+        optionBtnClick = true
+
+        binding.floatingAddButton.visibility = View.VISIBLE
+        binding.floatingDelButton.visibility = View.VISIBLE
+
+        binding.floatingAddButton.startAnimation(PopOpen)
+        binding.floatingDelButton.startAnimation(PopOpen)
+        binding.floatingOptButton.startAnimation(rotateOpen)
+
+        binding.floatingAddButton.isClickable = true
+        binding.floatingDelButton.isClickable = true
+    }
+    private fun OptBtnClose()
+    {
+        optionBtnClick = false
+
+        binding.floatingAddButton.visibility = View.INVISIBLE
+        binding.floatingDelButton.visibility = View.INVISIBLE
+
+        binding.floatingAddButton.startAnimation(PopClose)
+        binding.floatingDelButton.startAnimation(PopClose)
+        binding.floatingOptButton.startAnimation(rotateClose)
+
+        binding.floatingAddButton.isClickable = false
+        binding.floatingDelButton.isClickable = false
+
+    }
+
+    override fun onPause() {
+        binding.floatingAddButton.visibility = View.INVISIBLE
+        binding.floatingDelButton.visibility = View.INVISIBLE
+        optionBtnClick = false
+
+        super.onPause()
+
     }
 
     private lateinit var insProfileViewModel: ProfileViewModel
@@ -56,6 +113,8 @@ class ProfileFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
         _binding = null
+
     }
 }

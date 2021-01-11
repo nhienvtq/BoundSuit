@@ -9,6 +9,17 @@
         tools:context=".AddProfileFragment">
 
 
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailTextfield"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingAddButton"
             android:layout_width="wrap_content"
@@ -119,7 +130,7 @@
             app:layout_constraintTop_toTopOf="@+id/genderLabel">
 
             <RadioButton
-                android:id="@+id/malercheckBox"
+                android:id="@+id/malecheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Male" />
@@ -176,5 +187,19 @@
             app:layout_constraintStart_toStartOf="@+id/phoneTextfield"
             app:layout_constraintTop_toTopOf="@+id/emailLabel" />
 
+        <ImageButton
+            android:id="@+id/insertPhotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/colorlight"
+            android:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImageView"
+            app:layout_constraintEnd_toStartOf="@+id/profileImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profileImageView"
+            app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24"
+            app:iconSize="300dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

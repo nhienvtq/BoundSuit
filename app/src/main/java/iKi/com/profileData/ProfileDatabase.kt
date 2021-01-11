@@ -24,7 +24,7 @@ abstract class ProfileDatabase:RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     ProfileDatabase::class.java,
-                    "profile_table"
+                    "profile_Table"
                 ).build()
                 INSTANCE = instance
                 return instance

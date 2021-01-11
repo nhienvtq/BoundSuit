@@ -11,7 +11,7 @@ interface ProfileDao {
     @Query("SELECT * FROM profile_table ORDER BY id ASC")
     fun readAllData():LiveData<List<Profile>>
 
-    @Query("DELETE FROM profile_table")
+    @Query("DELETE FROM profile_Table")
     suspend fun deleteAllProfile()
 
     @Delete
