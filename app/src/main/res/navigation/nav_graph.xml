@@ -16,29 +16,39 @@
     <fragment
         android:id="@+id/controlFragment"
         android:name="iKi.com.ControlFragment"
-        android:label="ControlFragment" >
+        android:label="ControlFragment"
+        tools:layout="@layout/fragment_control">
         <action
             android:id="@+id/action_controlFragment_to_addProfileFragment"
             app:destination="@id/addProfileFragment" />
+        <action
+            android:id="@+id/action_controlFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="iKi.com.PagerFragments.ProfileFragment"
-        android:label="ProfileFragment" >
-        <action
-            android:id="@+id/action_profileFragment_to_addProfileFragment"
-            app:destination="@id/addProfileFragment" />
-    </fragment>
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
     <fragment
         android:id="@+id/addProfileFragment"
         android:name="iKi.com.AddProfileFragment"
         android:label="fragment_add_profile"
         tools:layout="@layout/fragment_add_profile" >
         <action
-            android:id="@+id/action_addProfileFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_addProfileFragment_to_controlFragment"
             app:destination="@id/controlFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="iKi.com.UpdateProfileFragment"
+        android:label="UpdateProfileFragment"
+        tools:layout="@layout/fragment_update_profile">
+        <action
+            android:id="@+id/action_updateProfileFragment_to_controlFragment"
+            app:destination="@id/controlFragment" />
+        <argument
+            android:name="currentProfile"
+            app:argType="iKi.com.profileData.Profile" />
     </fragment>
 </navigation>

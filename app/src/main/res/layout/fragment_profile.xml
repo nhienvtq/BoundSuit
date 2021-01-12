@@ -36,7 +36,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/floatingOptButton"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            app:maxImageSize="40dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingDelButton"
@@ -50,6 +51,7 @@
             app:layout_constraintBottom_toTopOf="@+id/floatingAddButton"
             app:layout_constraintEnd_toEndOf="@+id/floatingAddButton"
             app:layout_constraintStart_toStartOf="@+id/floatingAddButton"
+            app:maxImageSize="40dp"
             app:srcCompat="@drawable/ic_baseline_delete_24" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,6 +65,7 @@
             android:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:maxImageSize="40dp"
             app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

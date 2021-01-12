@@ -5,11 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
+import iKi.com.ControlFragmentDirections
 import iKi.com.ImageBitmapString
+import iKi.com.PagerFragments.ProfileFragment
 import iKi.com.R
 import iKi.com.databinding.ProfileRecyclerviewSectionBinding
 
@@ -26,10 +29,29 @@ class profileRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder){
-            is RecyclerViewHolder -> {
-                holder.bind(listitems.get(position))
-            }
+
+        val currentItem = listitems[position]
+        //binding views to data of database
+        binding.nameTextView.text = currentItem.Name
+        binding.emailTextView.text = currentItem.Email
+        binding.phoneTextView.text = currentItem.PhoneNumber
+        binding.avatarImage.load(ImageBitmapString.StringToBitMap(currentItem.Image_profile)){
+            crossfade(true)
+            crossfade(1000)
+            transformations(CircleCropTransformation())
+            size(500)
+        }
+        if (currentItem.Gender == "Male"){
+            val color = Color.parseColor("#7fdbda")
+            binding.genderImage.setColorFilter(color)
+        } else {
+            val color = Color.parseColor("#e79cc2")
+            binding.genderImage.setColorFilter(color)
+        }
+
+        binding.rowLayout.setOnClickListener(){
+            val action = ControlFragmentDirections.actionControlFragmentToUpdateProfileFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
         }
     }
 
@@ -44,34 +66,6 @@ class profileRecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(
 
 
     class RecyclerViewHolder constructor(binding: ProfileRecyclerviewSectionBinding):
-        RecyclerView.ViewHolder(binding.getRoot()){
-        val textName = binding.nameTextView
-        val textEmail = binding.emailTextView
-        val textPhone = binding.phoneTextView
-        val imageProfile = binding.avatarImage
-        val imageGender = binding.genderImage
-
-
-        fun bind(profile: Profile){
-
-            textName.setText(profile.Name)
-            textEmail.setText(profile.Email)
-            textPhone.setText(profile.PhoneNumber)
-//            imageProfile.setImageBitmap(ImageBitmapString.StringToBitMap(profile.Image_profile))
-            imageProfile.load(ImageBitmapString.StringToBitMap(profile.Image_profile)){
-                crossfade(true)
-                crossfade(1000)
-                transformations(CircleCropTransformation())
-                size(500)
-            }
-            if (profile.Gender == "Male"){
-                val color = Color.parseColor("#7fdbda")
-                imageGender.setColorFilter(color)
-            } else {
-                val color = Color.parseColor("#e79cc2")
-                imageGender.setColorFilter(color)
-            }
-        }
-    }
+        RecyclerView.ViewHolder(binding.getRoot()){}
 }
 

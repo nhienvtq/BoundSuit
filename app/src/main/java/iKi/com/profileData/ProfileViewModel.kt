@@ -28,4 +28,10 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
             repository.delAllProfile()
         }
     }
+
+    fun updateProfile(profile: Profile){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.updateProfile(profile)
+        }
+    }
 }

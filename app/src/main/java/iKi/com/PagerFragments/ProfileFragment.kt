@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
     private val PopClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_popup)}
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("flowTag", "ProfileFragment.tracing: 1")
         binding.floatingOptButton.setOnClickListener(){
             if (!optionBtnClick){
                 OptBtnOpen()
