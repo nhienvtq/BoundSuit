@@ -9,6 +9,10 @@ class ProfileRepository(private val profileDao: ProfileDao) {
         profileDao.addProfile(newProfile)
     }
 
+    suspend fun delProfile(selectedProfile: Profile){
+        profileDao.delProfile(selectedProfile)
+    }
+
     suspend fun delAllProfile(){
         profileDao.deleteAllProfile()
     }

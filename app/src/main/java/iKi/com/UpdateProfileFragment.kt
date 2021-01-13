@@ -116,13 +116,6 @@ class UpdateProfileFragment : Fragment() {
             binding.nationSpinner.adapter = adapter
         }
 
-        binding.malecheckBox.isChecked = true
-        binding.profileImageView.load(R.raw.maleavatar){
-            crossfade(true)
-            crossfade(1000)
-            transformations(CircleCropTransformation())
-            size(500)
-        }
         binding.malecheckBox.setOnClickListener(){
             binding.profileImageView.load(R.raw.maleavatar){
                 crossfade(true)
@@ -148,7 +141,7 @@ class UpdateProfileFragment : Fragment() {
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
         }
 
-        binding.floatingAddButton.setOnClickListener() {
+        binding.floatingUpdateButton.setOnClickListener() {
             var iserror = false
             //Name
             if (binding.nameTextfield.text.toString().isNotEmpty()) {
@@ -207,7 +200,7 @@ class UpdateProfileFragment : Fragment() {
                     Image!!
                 )
                 insProfileViewModel.updateProfile(profile)
-                Toast.makeText(context, "Profile update", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Profile updated", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_updateProfileFragment_to_controlFragment)
                 activity?.let { hideSoftKeyboard(it) }
             }
@@ -230,8 +223,10 @@ class UpdateProfileFragment : Fragment() {
         val inputMethodManager = activity.getSystemService(
             Activity.INPUT_METHOD_SERVICE
         ) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(
-            activity.currentFocus!!.windowToken, 0
-        )
+        if (inputMethodManager.isAcceptingText){
+            inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus!!.windowToken, 0
+            )
+        }
     }
 }

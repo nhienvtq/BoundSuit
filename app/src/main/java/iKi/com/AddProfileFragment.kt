@@ -209,8 +209,10 @@ class AddProfileFragment : Fragment() {
         val inputMethodManager = activity.getSystemService(
             Activity.INPUT_METHOD_SERVICE
         ) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(
-            activity.currentFocus!!.windowToken, 0
-        )
+        if (inputMethodManager.isAcceptingText){
+            inputMethodManager.hideSoftInputFromWindow(
+                activity.currentFocus!!.windowToken, 0
+            )
+        }
     }
 }

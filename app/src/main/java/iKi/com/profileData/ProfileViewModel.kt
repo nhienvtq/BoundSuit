@@ -1,14 +1,13 @@
 package iKi.com.profileData
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(application: Application): AndroidViewModel(application) {
     val readAllData: LiveData<List<Profile>>
+
     private val repository: ProfileRepository
 
     init{
@@ -20,6 +19,12 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
     fun addProfile(profile: Profile){
         viewModelScope.launch(Dispatchers.IO){
             repository.addProfile(profile)
+        }
+    }
+
+    fun delProfile(profile: Profile){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.delProfile(profile)
         }
     }
 

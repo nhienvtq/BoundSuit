@@ -8,18 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import iKi.com.Decoration.TopPaddingDecoration
 import iKi.com.R
 import iKi.com.databinding.FragmentProfileBinding
+import iKi.com.profileData.OnProfileItemClickListener
+import iKi.com.profileData.Profile
 import iKi.com.profileData.ProfileViewModel
 import iKi.com.profileData.profileRecyclerViewAdapter
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), OnProfileItemClickListener {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private var optionBtnClick = false
@@ -97,23 +99,29 @@ class ProfileFragment : Fragment() {
     }
 
     private lateinit var insProfileViewModel: ProfileViewModel
+    private lateinit var profile_adapter: profileRecyclerViewAdapter
     private fun initRecyclerView(){
-        val profile_adapter = profileRecyclerViewAdapter()
+        profile_adapter = profileRecyclerViewAdapter( this)
         binding.profileRecyclerview.adapter = profile_adapter
         binding.profileRecyclerview.layoutManager = LinearLayoutManager(requireContext())
-        val TopPaddingDecoration = TopPaddingDecoration(30)
-        binding.profileRecyclerview.addItemDecoration(TopPaddingDecoration)
         //viewModel
         insProfileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
         insProfileViewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            profile -> profile_adapter.setData(profile)
+            profile -> profile_adapter.setData(profile, requireContext())
         })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
         _binding = null
+    }
 
+    override fun onItemClick(item: Profile, position: Int) {
+            val profile = Profile(
+                item.id,"",0,"","",
+                "","","","")
+        insProfileViewModel.delProfile(profile)
+        profile_adapter = profileRecyclerViewAdapter( this)
+        binding.profileRecyclerview.adapter = profile_adapter
     }
 }
