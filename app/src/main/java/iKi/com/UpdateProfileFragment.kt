@@ -2,6 +2,7 @@ package iKi.com
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -26,6 +27,7 @@ import coil.transform.CircleCropTransformation
 import iKi.com.databinding.FragmentUpdateProfileBinding
 import iKi.com.profileData.Profile
 import iKi.com.profileData.ProfileViewModel
+import iKi.com.profileData.profileRecyclerViewAdapter
 import java.util.*
 
 class UpdateProfileFragment : Fragment() {
@@ -204,6 +206,20 @@ class UpdateProfileFragment : Fragment() {
                 findNavController().navigate(R.id.action_updateProfileFragment_to_controlFragment)
                 activity?.let { hideSoftKeyboard(it) }
             }
+        }
+        binding.floatingDelSingleButton.setOnClickListener(){
+            val profile = Profile(args.currentProfile.id,"",0,"","",
+                "","","","")
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Delete this profile?")
+            builder.setPositiveButton("Delete"){_, _ ->
+                insProfileViewModel.delProfile(profile)
+                Toast.makeText(context, "Profile deleted", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_updateProfileFragment_to_controlFragment)
+                activity?.let { hideSoftKeyboard(it) }
+            }
+            builder.setNegativeButton("Cancel"){ _, _  ->}
+            builder.create().show()
         }
     }
 

@@ -58,16 +58,18 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingDelSingleButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_baseline_delete_24"
+            app:fabCustomSize="30dp"
+            app:fabSize="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:maxImageSize="40sp" />
+            app:maxImageSize="15sp" />
 
         <TextView
         android:id="@+id/nameLabel"

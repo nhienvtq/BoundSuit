@@ -1,5 +1,6 @@
 package iKi.com.PagerFragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -55,7 +56,14 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
             optionBtnClick = false
         }
         binding.floatingDelButton.setOnClickListener(){
-            insProfileViewModel.delAllProfile()
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setMessage("Delete all profile?")
+            builder.setPositiveButton("Delete"){_, _ ->
+                insProfileViewModel.delAllProfile()
+                Toast.makeText(context, "Profiles deleted", Toast.LENGTH_SHORT).show()
+            }
+            builder.setNegativeButton("Cancel"){ _, _  ->}
+            builder.create().show()
         }
         initRecyclerView()
     }
@@ -117,11 +125,17 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
     }
 
     override fun onItemClick(item: Profile, position: Int) {
-            val profile = Profile(
-                item.id,"",0,"","",
-                "","","","")
-        insProfileViewModel.delProfile(profile)
-        profile_adapter = profileRecyclerViewAdapter( this)
-        binding.profileRecyclerview.adapter = profile_adapter
+        val profile = Profile(item.id,"",0,"","",
+            "","","","")
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Delete this profile?")
+        builder.setPositiveButton("Delete"){_, _ ->
+            insProfileViewModel.delProfile(profile)
+            Toast.makeText(context, "Profile deleted", Toast.LENGTH_SHORT).show()
+            profile_adapter = profileRecyclerViewAdapter( this)
+            binding.profileRecyclerview.adapter = profile_adapter
+        }
+        builder.setNegativeButton("Cancel"){ _, _  ->}
+        builder.create().show()
     }
 }
