@@ -21,8 +21,8 @@
     <string name="login_failed">"Login failed"</string>
 
     <string-array name="nation_array">
-        <item>a</item>
-        <item>b</item>
-        <item>c</item>
+        <item>Vietnam</item>
+        <item>ThaiLand</item>
+        <item>India</item>
     </string-array>
 </resources>

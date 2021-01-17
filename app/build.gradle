@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-parcelize' //kotlin-android-extensions is being deprecated
-
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-kapt'     //Room database
+apply plugin: 'kotlin-parcelize' //kotlin-android-extensions is being deprecated - passing args
+apply plugin: "androidx.navigation.safeargs.kotlin"     //passing arg
 
 android {
     compileSdkVersion 30
@@ -60,6 +59,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -93,4 +93,17 @@ dependencies {
 
     //Coil image
     implementation("io.coil-kt:coil:0.13.0")
+
+    //RESTful
+    def version_retrofit =  "2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
+
+    // Moshi
+    def version_moshi = "1.11.0"
+    implementation "com.squareup.moshi:moshi:$version_moshi"
+    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
+
+    // Glide
+    def version_glide = "4.11.0"
+    implementation "com.github.bumptech.glide:glide:$version_glide"
 }

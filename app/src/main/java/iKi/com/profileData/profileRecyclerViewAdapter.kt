@@ -19,9 +19,8 @@ import iKi.com.R
 import iKi.com.databinding.ProfileRecyclerviewSectionBinding
 
 
-//class profileRecyclerViewAdapter(listitems: List<Profile>, clickListener: OnProfileItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
-//    private var listitems = listitems
-class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickListener):
+    RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
     private var listitems: List<Profile> = ArrayList()
     private var _binding: ProfileRecyclerviewSectionBinding? = null
     private val binding get() = _binding!!
@@ -29,7 +28,7 @@ class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickLi
     private lateinit var context: Context
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         layoutInflater = LayoutInflater.from(parent.getContext())
         _binding = DataBindingUtil.inflate(
             layoutInflater,
@@ -86,42 +85,33 @@ class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickLi
         notifyDataSetChanged()
     }
 
-
-
-    class RecyclerViewHolder constructor(binding: ProfileRecyclerviewSectionBinding):
+    class RecyclerViewHolder constructor(private var binding: ProfileRecyclerviewSectionBinding):
         RecyclerView.ViewHolder(binding.getRoot()){
-        val morebutton = binding.moreimageBtn
-        val editbutton = binding.editimageBtn
-        val deletebutton = binding.delSigimageBtn
         private lateinit var translateAnimation: Animation
         private var morebutton_click = false
 
         fun DisplayMoreFunction(context: Context){
-            morebutton.setOnClickListener(){
+            binding.moreimageBtn.setOnClickListener(){
+                //appear on click
                 if (morebutton_click == false){
-                    translateAnimation = AnimationUtils.loadAnimation(
-                        context,
-                        R.anim.translate_from_right
-                    )
+                    translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_from_right)
                     morebutton_click = true
-                    editbutton.visibility = View.VISIBLE
-                    deletebutton.visibility = View.VISIBLE
-                } else {
-                    translateAnimation = AnimationUtils.loadAnimation(
-                        context,
-                        R.anim.translate_to_right
-                    )
+                    binding.editimageBtn.visibility = View.VISIBLE
+                    binding.delSigimageBtn.visibility = View.VISIBLE
+                } else { //disappear on click
+                    translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_to_right)
                     morebutton_click = false
-                    editbutton.visibility = View.INVISIBLE
-                    deletebutton.visibility = View.INVISIBLE
+                    binding.editimageBtn.visibility = View.INVISIBLE
+                    binding.delSigimageBtn.visibility = View.INVISIBLE
                 }
-                editbutton.startAnimation(translateAnimation)
-                deletebutton.startAnimation(translateAnimation)
+                binding.editimageBtn.startAnimation(translateAnimation)
+                binding.delSigimageBtn.startAnimation(translateAnimation)
             }
         }
 
         fun initialize(item: Profile, action: OnProfileItemClickListener){
-            deletebutton.setOnClickListener(){
+            //passing position when delete button click
+            binding.delSigimageBtn.setOnClickListener(){
                 action.onItemClick(item, adapterPosition)
             }
         }

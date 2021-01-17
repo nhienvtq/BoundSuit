@@ -1,8 +1,8 @@
 package iKi.com.PagerFragments
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +22,7 @@ import iKi.com.profileData.Profile
 import iKi.com.profileData.ProfileViewModel
 import iKi.com.profileData.profileRecyclerViewAdapter
 
+//Display - Create - Delete - Update profile Room database
 class ProfileFragment : Fragment(), OnProfileItemClickListener {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
@@ -36,10 +37,6 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
         return binding.root
     }
 
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_minus90deg)}
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_plus90deg)}
-    private val PopOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_popup)}
-    private val PopClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_popup)}
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.floatingOptButton.setOnClickListener(){
@@ -49,12 +46,14 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
                 OptBtnClose()
             }
         }
+        //navigate to add fragment
         binding.floatingAddButton.setOnClickListener(){
             findNavController().navigate(R.id.action_controlFragment_to_addProfileFragment)
             binding.floatingAddButton.visibility = View.INVISIBLE
             binding.floatingDelButton.visibility = View.INVISIBLE
             optionBtnClick = false
         }
+        //delete all data
         binding.floatingDelButton.setOnClickListener(){
             val builder = AlertDialog.Builder(requireContext())
             builder.setMessage("Delete all profile?")
@@ -65,45 +64,46 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
             builder.setNegativeButton("Cancel"){ _, _  ->}
             builder.create().show()
         }
+        //initialize profile RecyclerView
         initRecyclerView()
     }
-    private fun OptBtnOpen()
-    {
-        optionBtnClick = true
 
+    private fun OptBtnOpen(){
+        optionBtnClick = true
         binding.floatingAddButton.visibility = View.VISIBLE
         binding.floatingDelButton.visibility = View.VISIBLE
 
+        val PopOpen = AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_popup)
         binding.floatingAddButton.startAnimation(PopOpen)
         binding.floatingDelButton.startAnimation(PopOpen)
+
+        val rotateOpen = AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_minus90deg)
         binding.floatingOptButton.startAnimation(rotateOpen)
 
         binding.floatingAddButton.isClickable = true
         binding.floatingDelButton.isClickable = true
     }
-    private fun OptBtnClose()
-    {
+    private fun OptBtnClose(){
         optionBtnClick = false
-
         binding.floatingAddButton.visibility = View.INVISIBLE
         binding.floatingDelButton.visibility = View.INVISIBLE
 
+        val PopClose = AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_popup)
         binding.floatingAddButton.startAnimation(PopClose)
         binding.floatingDelButton.startAnimation(PopClose)
+
+        val rotateClose = AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_plus90deg)
         binding.floatingOptButton.startAnimation(rotateClose)
 
         binding.floatingAddButton.isClickable = false
         binding.floatingDelButton.isClickable = false
-
     }
 
     override fun onPause() {
         binding.floatingAddButton.visibility = View.INVISIBLE
         binding.floatingDelButton.visibility = View.INVISIBLE
         optionBtnClick = false
-
         super.onPause()
-
     }
 
     private lateinit var insProfileViewModel: ProfileViewModel
@@ -124,6 +124,7 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
         _binding = null
     }
 
+    //Handle get position of clicked RecyclerView - delete the selected data
     override fun onItemClick(item: Profile, position: Int) {
         val profile = Profile(item.id,"",0,"","",
             "","","","")

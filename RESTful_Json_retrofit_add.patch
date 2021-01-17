@@ -1,0 +1,772 @@
+Index: app/src/main/res/layout/fragment_photo.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_photo.xml	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/src/main/res/layout/fragment_photo.xml	(date 1610874748358)
+@@ -1,14 +1,104 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".PagerFragments.PhotoFragment">
++<layout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools">
++
++    <data>
++        <variable
++            name="viewModel"
++            type="iKi.com.PhotoViewModel" />
++        <variable
++            name="property"
++            type="iKi.com.networkRESTful.PhotoModel" />
++    </data>
++
++    <androidx.constraintlayout.widget.ConstraintLayout
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:background="@color/fragmentBackgroundPrimary">
+ 
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
++        <TextView
++            android:id="@+id/idtextView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
++            android:text="TextView"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintHorizontal_bias="0.5"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/photoRESTImage" />
++
++        <ImageView
++            android:id="@+id/photoRESTImage"
++            imageUrl="@(property.imgSrcUrl"
++            android:layout_width="250sp"
++            android:layout_height="250sp"
++            android:layout_marginTop="50dp"
++            android:src="@drawable/ic_baseline_add_photo_alternate_24"
++            android:visibility="invisible"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintHorizontal_bias="0.5"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toTopOf="parent"
++            app:layout_constraintVertical_bias="0.0" />
++
++        <TextView
++            android:id="@+id/pricetextView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
++            android:text="TextView"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintHorizontal_bias="0.5"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/idtextView"
++            app:layout_constraintVertical_bias="0.0" />
++
++        <TextView
++            android:id="@+id/typetextView"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_marginTop="10dp"
++            android:text="TextView"
++            app:layout_constraintBottom_toBottomOf="parent"
++            app:layout_constraintEnd_toEndOf="parent"
++            app:layout_constraintHorizontal_bias="0.5"
++            app:layout_constraintStart_toStartOf="parent"
++            app:layout_constraintTop_toBottomOf="@+id/pricetextView"
++            app:layout_constraintVertical_bias="0.0" />
++
++        <ProgressBar
++            android:id="@+id/loadingImage"
++            style="?android:attr/progressBarStyle"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:visibility="visible"
++            app:layout_constraintBottom_toBottomOf="@+id/photoRESTImage"
++            app:layout_constraintEnd_toEndOf="@+id/photoRESTImage"
++            app:layout_constraintStart_toStartOf="@+id/photoRESTImage"
++            app:layout_constraintTop_toTopOf="@+id/photoRESTImage" />
+ 
+-</FrameLayout>
+\ No newline at end of file
++        <ImageView
++            android:id="@+id/rightBtn"
++            android:layout_width="60sp"
++            android:layout_height="60sp"
++            android:layout_marginStart="20dp"
++            app:layout_constraintBottom_toBottomOf="@+id/photoRESTImage"
++            app:layout_constraintStart_toEndOf="@+id/photoRESTImage"
++            app:layout_constraintTop_toTopOf="@+id/photoRESTImage"
++            app:srcCompat="@drawable/ic_right" />
++
++        <ImageView
++            android:id="@+id/leftBtn"
++            android:layout_width="60sp"
++            android:layout_height="60sp"
++            android:layout_marginEnd="20dp"
++            app:layout_constraintBottom_toBottomOf="@+id/photoRESTImage"
++            app:layout_constraintEnd_toStartOf="@+id/photoRESTImage"
++            app:layout_constraintTop_toTopOf="@+id/photoRESTImage"
++            app:srcCompat="@drawable/ic_left" />
++
++    </androidx.constraintlayout.widget.ConstraintLayout>
++</layout>
+\ No newline at end of file
+Index: app/src/main/java/iKi/com/PagerFragments/PhotoFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/PagerFragments/PhotoFragment.kt	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/src/main/java/iKi/com/PagerFragments/PhotoFragment.kt	(date 1610874748377)
+@@ -1,20 +1,101 @@
+ package iKi.com.PagerFragments
+ 
++import android.content.Context
+ import android.os.Bundle
+-import androidx.fragment.app.Fragment
++import android.util.Log
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
++import android.view.animation.Animation
++import android.view.animation.AnimationUtils
++import android.widget.Toast
++import androidx.databinding.BindingAdapter
++import androidx.databinding.DataBindingUtil
++import androidx.fragment.app.Fragment
++import androidx.lifecycle.LiveData
++import androidx.lifecycle.Observer
++import androidx.lifecycle.ViewModelProvider
++import coil.load
++import iKi.com.PhotoApiStatus
++import iKi.com.PhotoViewModel
+ import iKi.com.R
++import iKi.com.databinding.FragmentPhotoBinding
++import iKi.com.networkRESTful.PhotoModel
++import org.json.JSONArray
++
+ 
+ class PhotoFragment : Fragment() {
++    private lateinit var _binding: FragmentPhotoBinding
++    private val binding get() = _binding!!
++    private lateinit var insPhotoViewModel: PhotoViewModel
+ 
+     override fun onCreateView(
+         inflater: LayoutInflater, container: ViewGroup?,
+         savedInstanceState: Bundle?
+     ): View? {
++        insPhotoViewModel = ViewModelProvider(this).get(PhotoViewModel::class.java)
++
+         // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_photo, container, false)
++        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_photo, container, false)
++        binding.setLifecycleOwner(this)
++        return binding.root
+     }
++
++    private var jsonarray: List<PhotoModel>? = null
++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
++        super.onViewCreated(view, savedInstanceState)
++        var position: Int
++        insPhotoViewModel.status.observe(viewLifecycleOwner, Observer {
++
++            binding.loadingImage.visibility = View.VISIBLE
++            when (insPhotoViewModel.status.value) {
++                PhotoApiStatus.DONE -> {
++                    binding.loadingImage.visibility = View.INVISIBLE
++                    binding.photoRESTImage.visibility = View.VISIBLE
++                    setDataDisplay(0)
++                }
++                PhotoApiStatus.LOADING -> binding.loadingImage.visibility = View.VISIBLE
++            }
++        })
++        insPhotoViewModel.model.observe(viewLifecycleOwner, Observer {
++            jsonarray = insPhotoViewModel.model.value!!
++        })
++
++        var translateAnimation: Animation
++        binding.rightBtn.setOnClickListener(){
++            if (insPhotoViewModel.indexArray < jsonarray?.size!!){
++                insPhotoViewModel.indexArray = insPhotoViewModel.indexArray + 1
++                position = insPhotoViewModel.indexArray
++                setDataDisplay(position)
++                translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_from_right)
++                binding.photoRESTImage.startAnimation(translateAnimation)
++            } else {
++                Toast.makeText(requireContext(), "last picture reached", Toast.LENGTH_SHORT).show()
++            }
++        }
++
++        binding.leftBtn.setOnClickListener(){
++            if (insPhotoViewModel.indexArray > 0){
++                insPhotoViewModel.indexArray = insPhotoViewModel.indexArray - 1
++                position = insPhotoViewModel.indexArray
++                setDataDisplay(position)
++                translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_from_left)
++                binding.photoRESTImage.startAnimation(translateAnimation)
++            } else {
++                Toast.makeText(requireContext(), "first picture reached", Toast.LENGTH_SHORT).show()
++            }
++        }
+ 
++        binding.lifecycleOwner = this
++        binding.viewModel = insPhotoViewModel
++    }
++
++    fun setDataDisplay(position: Int){
++        binding.photoRESTImage.load(jsonarray?.get(position)?.getUrl()){
++            size(1000)
++        }
++        binding.idtextView.setText(jsonarray?.get(position)?.getid())
++        binding.typetextView.setText(jsonarray?.get(position)?.getprice())
++        binding.pricetextView.setText(jsonarray?.get(position)?.gettype())
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/res/anim/translate_from_left.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/anim/translate_from_left.xml	(date 1610869952944)
++++ app/src/main/res/anim/translate_from_left.xml	(date 1610869952944)
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<set xmlns:android="http://schemas.android.com/apk/res/android">
++    <translate
++        android:fromXDelta="-100%"
++        android:toXDelta="0%"
++        android:duration="300"/>
++
++    <alpha
++        android:fromAlpha="0"
++        android:toAlpha="1"
++        android:duration="300"/>
++</set>
+\ No newline at end of file
+Index: app/src/main/res/drawable-anydpi/ic_right.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/ic_right.xml	(date 1610827162012)
++++ app/src/main/res/drawable-anydpi/ic_right.xml	(date 1610827162012)
+@@ -0,0 +1,11 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="#333333"
++    android:alpha="0.6">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M10,17l5,-5 -5,-5v10z"/>
++</vector>
+Index: app/src/main/java/iKi/com/networkRESTful/photoApiService.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/networkRESTful/photoApiService.kt	(date 1610785109752)
++++ app/src/main/java/iKi/com/networkRESTful/photoApiService.kt	(date 1610785109752)
+@@ -0,0 +1,30 @@
++package iKi.com.networkRESTful
++
++import com.squareup.moshi.Moshi
++import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
++import retrofit2.Retrofit
++import retrofit2.converter.moshi.MoshiConverterFactory
++import retrofit2.http.GET
++import retrofit2.http.Query
++
++//https://mars.udacity.com/realestate
++private const val BASE_URL = "https://mars.udacity.com"
++enum class PhotoApiFilter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
++
++private val moshi = Moshi.Builder()
++    .add(KotlinJsonAdapterFactory())
++    .build()
++
++private val retrofit = Retrofit.Builder()
++    .addConverterFactory(MoshiConverterFactory.create(moshi))
++    .baseUrl(BASE_URL)
++    .build()
++
++interface photoApiService{
++    @GET("realestate")
++    suspend fun getProperties(@Query("filter") type: String): List<PhotoModel>
++}
++
++object photoApi{
++    val retrofitService: photoApiService by lazy{retrofit.create(photoApiService::class.java)}
++}
+\ No newline at end of file
+Index: app/src/main/res/drawable-anydpi/ic_left.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable-anydpi/ic_left.xml	(date 1610827140996)
++++ app/src/main/res/drawable-anydpi/ic_left.xml	(date 1610827140996)
+@@ -0,0 +1,11 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24"
++    android:tint="#333333"
++    android:alpha="0.6">
++  <path
++      android:fillColor="@android:color/white"
++      android:pathData="M14,7l-5,5 5,5V7z"/>
++</vector>
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/build.gradle	(date 1610593621507)
+@@ -1,9 +1,8 @@
+ apply plugin: 'com.android.application'
+ apply plugin: 'kotlin-android'
+-apply plugin: 'kotlin-kapt'
+-apply plugin: 'kotlin-parcelize' //kotlin-android-extensions is being deprecated
+-
+-apply plugin: "androidx.navigation.safeargs.kotlin"
++apply plugin: 'kotlin-kapt'     //Room database
++apply plugin: 'kotlin-parcelize' //kotlin-android-extensions is being deprecated - passing args
++apply plugin: "androidx.navigation.safeargs.kotlin"     //passing arg
+ 
+ android {
+     compileSdkVersion 30
+@@ -60,6 +59,7 @@
+     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+     implementation 'androidx.annotation:annotation:1.1.0'
++    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+ 
+     testImplementation 'junit:junit:4.12'
+     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+@@ -93,4 +93,17 @@
+ 
+     //Coil image
+     implementation("io.coil-kt:coil:0.13.0")
++
++    //RESTful
++    def version_retrofit =  "2.9.0"
++    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
++
++    // Moshi
++    def version_moshi = "1.11.0"
++    implementation "com.squareup.moshi:moshi:$version_moshi"
++    implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
++
++    // Glide
++    def version_glide = "4.11.0"
++    implementation "com.github.bumptech.glide:glide:$version_glide"
+ }
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/src/main/res/values/strings.xml	(date 1610609170216)
+@@ -21,8 +21,8 @@
+     <string name="login_failed">"Login failed"</string>
+ 
+     <string-array name="nation_array">
+-        <item>a</item>
+-        <item>b</item>
+-        <item>c</item>
++        <item>Vietnam</item>
++        <item>ThaiLand</item>
++        <item>India</item>
+     </string-array>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/java/iKi/com/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/MainActivity.kt	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/src/main/java/iKi/com/MainActivity.kt	(date 1610552308653)
+@@ -2,7 +2,7 @@
+ 
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
+-
++//contain nav_graph
+ class MainActivity : AppCompatActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+Index: app/src/main/java/iKi/com/profileData/profileRecyclerViewAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/profileData/profileRecyclerViewAdapter.kt	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/src/main/java/iKi/com/profileData/profileRecyclerViewAdapter.kt	(date 1610598421517)
+@@ -19,9 +19,8 @@
+ import iKi.com.databinding.ProfileRecyclerviewSectionBinding
+ 
+ 
+-//class profileRecyclerViewAdapter(listitems: List<Profile>, clickListener: OnProfileItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+-//    private var listitems = listitems
+-class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
++class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickListener):
++    RecyclerView.Adapter<RecyclerView.ViewHolder>()  {
+     private var listitems: List<Profile> = ArrayList()
+     private var _binding: ProfileRecyclerviewSectionBinding? = null
+     private val binding get() = _binding!!
+@@ -29,7 +28,7 @@
+     private lateinit var context: Context
+ 
+ 
+-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
++    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+         layoutInflater = LayoutInflater.from(parent.getContext())
+         _binding = DataBindingUtil.inflate(
+             layoutInflater,
+@@ -86,42 +85,33 @@
+         notifyDataSetChanged()
+     }
+ 
+-
+-
+-    class RecyclerViewHolder constructor(binding: ProfileRecyclerviewSectionBinding):
++    class RecyclerViewHolder constructor(private var binding: ProfileRecyclerviewSectionBinding):
+         RecyclerView.ViewHolder(binding.getRoot()){
+-        val morebutton = binding.moreimageBtn
+-        val editbutton = binding.editimageBtn
+-        val deletebutton = binding.delSigimageBtn
+         private lateinit var translateAnimation: Animation
+         private var morebutton_click = false
+ 
+         fun DisplayMoreFunction(context: Context){
+-            morebutton.setOnClickListener(){
++            binding.moreimageBtn.setOnClickListener(){
++                //appear on click
+                 if (morebutton_click == false){
+-                    translateAnimation = AnimationUtils.loadAnimation(
+-                        context,
+-                        R.anim.translate_from_right
+-                    )
++                    translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_from_right)
+                     morebutton_click = true
+-                    editbutton.visibility = View.VISIBLE
+-                    deletebutton.visibility = View.VISIBLE
+-                } else {
+-                    translateAnimation = AnimationUtils.loadAnimation(
+-                        context,
+-                        R.anim.translate_to_right
+-                    )
++                    binding.editimageBtn.visibility = View.VISIBLE
++                    binding.delSigimageBtn.visibility = View.VISIBLE
++                } else { //disappear on click
++                    translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_to_right)
+                     morebutton_click = false
+-                    editbutton.visibility = View.INVISIBLE
+-                    deletebutton.visibility = View.INVISIBLE
++                    binding.editimageBtn.visibility = View.INVISIBLE
++                    binding.delSigimageBtn.visibility = View.INVISIBLE
+                 }
+-                editbutton.startAnimation(translateAnimation)
+-                deletebutton.startAnimation(translateAnimation)
++                binding.editimageBtn.startAnimation(translateAnimation)
++                binding.delSigimageBtn.startAnimation(translateAnimation)
+             }
+         }
+ 
+         fun initialize(item: Profile, action: OnProfileItemClickListener){
+-            deletebutton.setOnClickListener(){
++            //passing position when delete button click
++            binding.delSigimageBtn.setOnClickListener(){
+                 action.onItemClick(item, adapterPosition)
+             }
+         }
+Index: app/src/main/java/iKi/com/PagerFragments/ProfileFragment.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/PagerFragments/ProfileFragment.kt	(revision f6d15631bc741a176941594654cf9a9a2168189d)
++++ app/src/main/java/iKi/com/PagerFragments/ProfileFragment.kt	(date 1610871495378)
+@@ -1,8 +1,8 @@
+ package iKi.com.PagerFragments
+ 
+ import android.app.AlertDialog
++import android.content.Context
+ import android.os.Bundle
+-import android.util.Log
+ import androidx.fragment.app.Fragment
+ import android.view.LayoutInflater
+ import android.view.View
+@@ -22,6 +22,7 @@
+ import iKi.com.profileData.ProfileViewModel
+ import iKi.com.profileData.profileRecyclerViewAdapter
+ 
++//Display - Create - Delete - Update profile Room database
+ class ProfileFragment : Fragment(), OnProfileItemClickListener {
+     private var _binding: FragmentProfileBinding? = null
+     private val binding get() = _binding!!
+@@ -36,10 +37,6 @@
+         return binding.root
+     }
+ 
+-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_minus90deg)}
+-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_plus90deg)}
+-    private val PopOpen: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_popup)}
+-    private val PopClose: Animation by lazy { AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_popup)}
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+         super.onViewCreated(view, savedInstanceState)
+         binding.floatingOptButton.setOnClickListener(){
+@@ -49,12 +46,14 @@
+                 OptBtnClose()
+             }
+         }
++        //navigate to add fragment
+         binding.floatingAddButton.setOnClickListener(){
+             findNavController().navigate(R.id.action_controlFragment_to_addProfileFragment)
+             binding.floatingAddButton.visibility = View.INVISIBLE
+             binding.floatingDelButton.visibility = View.INVISIBLE
+             optionBtnClick = false
+         }
++        //delete all data
+         binding.floatingDelButton.setOnClickListener(){
+             val builder = AlertDialog.Builder(requireContext())
+             builder.setMessage("Delete all profile?")
+@@ -65,45 +64,46 @@
+             builder.setNegativeButton("Cancel"){ _, _  ->}
+             builder.create().show()
+         }
++        //initialize profile RecyclerView
+         initRecyclerView()
+     }
+-    private fun OptBtnOpen()
+-    {
++
++    private fun OptBtnOpen(){
+         optionBtnClick = true
+-
+         binding.floatingAddButton.visibility = View.VISIBLE
+         binding.floatingDelButton.visibility = View.VISIBLE
+ 
++        val PopOpen = AnimationUtils.loadAnimation(requireContext(),R.anim.from_bottom_popup)
+         binding.floatingAddButton.startAnimation(PopOpen)
+         binding.floatingDelButton.startAnimation(PopOpen)
++
++        val rotateOpen = AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_minus90deg)
+         binding.floatingOptButton.startAnimation(rotateOpen)
+ 
+         binding.floatingAddButton.isClickable = true
+         binding.floatingDelButton.isClickable = true
+     }
+-    private fun OptBtnClose()
+-    {
++    private fun OptBtnClose(){
+         optionBtnClick = false
+-
+         binding.floatingAddButton.visibility = View.INVISIBLE
+         binding.floatingDelButton.visibility = View.INVISIBLE
+ 
++        val PopClose = AnimationUtils.loadAnimation(requireContext(),R.anim.to_bottom_popup)
+         binding.floatingAddButton.startAnimation(PopClose)
+         binding.floatingDelButton.startAnimation(PopClose)
++
++        val rotateClose = AnimationUtils.loadAnimation(requireContext(),R.anim.rotate_plus90deg)
+         binding.floatingOptButton.startAnimation(rotateClose)
+ 
+         binding.floatingAddButton.isClickable = false
+         binding.floatingDelButton.isClickable = false
+-
+     }
+ 
+     override fun onPause() {
+         binding.floatingAddButton.visibility = View.INVISIBLE
+         binding.floatingDelButton.visibility = View.INVISIBLE
+         optionBtnClick = false
+-
+         super.onPause()
+-
+     }
+ 
+     private lateinit var insProfileViewModel: ProfileViewModel
+@@ -124,6 +124,7 @@
+         _binding = null
+     }
+ 
++    //Handle get position of clicked RecyclerView - delete the selected data
+     override fun onItemClick(item: Profile, position: Int) {
+         val profile = Profile(item.id,"",0,"","",
+             "","","","")
+Index: app/src/main/java/iKi/com/PhotoViewModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/PhotoViewModel.kt	(date 1610866810712)
++++ app/src/main/java/iKi/com/PhotoViewModel.kt	(date 1610866810712)
+@@ -0,0 +1,48 @@
++package iKi.com
++
++import androidx.lifecycle.LiveData
++import androidx.lifecycle.MutableLiveData
++import androidx.lifecycle.ViewModel
++import androidx.lifecycle.viewModelScope
++import iKi.com.networkRESTful.PhotoApiFilter
++import iKi.com.networkRESTful.PhotoModel
++import iKi.com.networkRESTful.photoApi
++import kotlinx.coroutines.launch
++
++enum class PhotoApiStatus { LOADING, ERROR, DONE }
++
++class PhotoViewModel(): ViewModel() {
++    private val _status = MutableLiveData<PhotoApiStatus>()
++    val status: LiveData<PhotoApiStatus> get() = _status
++
++    private val _model = MutableLiveData<List<PhotoModel>>()
++    val model: LiveData<List<PhotoModel>> get() = _model
++
++    var indexArray: Int
++
++    fun updateFilter(filter: PhotoApiFilter) {
++        getPhotoModel(filter)
++    }
++
++    init{
++        getPhotoModel(PhotoApiFilter.SHOW_ALL)
++        indexArray = 0
++    }
++
++    private fun getPhotoModel(filter: PhotoApiFilter){
++        viewModelScope.launch{
++            _status.value = PhotoApiStatus.LOADING
++            try {
++                _model.value = photoApi.retrofitService.getProperties(filter.value)
++                _status.value = PhotoApiStatus.DONE
++            } catch (e: Exception) {
++                _status.value = PhotoApiStatus.ERROR
++                _model.value = ArrayList()
++            }
++        }
++    }
++
++//    fun increase(){
++//        indexArray = indexArray + 1
++//    }
++}
+Index: app/src/main/java/iKi/com/networkRESTful/PhotoModel.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/iKi/com/networkRESTful/PhotoModel.kt	(date 1610873289458)
++++ app/src/main/java/iKi/com/networkRESTful/PhotoModel.kt	(date 1610873289458)
+@@ -0,0 +1,12 @@
++package iKi.com.networkRESTful
++
++import android.os.Parcelable
++import com.squareup.moshi.Json
++import kotlinx.android.parcel.Parcelize
++
++data class PhotoModel (val id: String,@Json(name = "img_src") val imgSrcUrl: String,val type: String,val price: Double) {
++    fun getid(): String{return id}
++    fun getUrl(): String{return imgSrcUrl}
++    fun gettype(): String{return type}
++    fun getprice(): String{return price.toString()}
++}
+diff --git app/src/main/res/drawable-xhdpi/ic_right.png app/src/main/res/drawable-xhdpi/ic_right.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..5f1f43d0a1c4dd3ba1bd4559530b6acf0a44c7b7
+GIT binary patch
+literal 168
+zc%17D@N?(olHy`uVBq!ia0vp^1|ZDA1|-9oezpUtd`}n0kcwMxub<{Tpdi2y*nR8m
+z@oksZK2hkHF(cXSS*gK;^z9;^lT=<x%#6IqC|I~q`5i-v3;zMP9>x<LmJH$>xg1<=
+zSQC`)F$oCnZn*C*Bi~@>^uoKR&h4VSWYrW0{^A#fQhP5v2=@XRvYBn_kA{A~naQp|
+Ps~J39{an^LB{Ts5GT%I2
+
+diff --git app/src/main/res/drawable-xxhdpi/ic_right.png app/src/main/res/drawable-xxhdpi/ic_right.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..a4fa9f15ce12725f2163e9043c99c53be297803c
+GIT binary patch
+literal 195
+zc%17D@N?(olHy`uVBq!ia0vp^9w5xY1|&n@ZgvM!U7jwEAr-gY-Ut*tpuppDu#3rl
+zYv}gU337k;#&YJjIqcA50D%R!@BI!-+;FYR<rjxakbuV$g$W*x3KN?glvo>GxR^Rc
+zSXT8<VOiBTg>6-DiO>q8OPLFHdDJt7x(b~TG+q+>S*|OL_w=gwe2qssnLCYHgwi=w
+k&Ix$TQJi4GTnM(HL0R8fLOMs_PA%9%Pgg&ebxsLQ0Dk~K6951J
+
+diff --git app/src/main/res/drawable-hdpi/ic_right.png app/src/main/res/drawable-hdpi/ic_right.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..fab8b1771627d1009906c3fcae83aeb2928e033a
+GIT binary patch
+literal 159
+zc%17D@N?(olHy`uVBq!ia0vp^Dj>|k1|%Oc%$NbB(mY)pLn>~)y|$6J!GOo*qRt_a
+zZO>b#<$6w3a`HS~yYTm<-{Cj&&RRad)4zHZGiz4|ck8J$yU%wz@(Qq<HcG4z_vnvm
+z*s_Axqy1K6%4>$!$i^q#Laj3$X9zbPQs~!y_qX7j<#$JZ@6CRD+jfWX18rpRboFyt
+I=akR{02pjN1ONa4
+
+diff --git app/src/main/res/drawable-hdpi/ic_left.png app/src/main/res/drawable-hdpi/ic_left.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..8d1fe23ad557eacb76eb55ca9d2c2d001fb93e3b
+GIT binary patch
+literal 153
+zc%17D@N?(olHy`uVBq!ia0vp^Dj>|k1|%Oc%$NbB5<FcTLn>~)y|$6}fC7(8;Hx#s
+z{o?$Gwt4n4mE7_C8DI3D>+}UFLBYRkI(Dovcz-8s#+f%^5|$Z9JRIXCBs1D3HiSv2
+zuE=q)o>H~)G@FU@PMKqy7<)CgAK&_;PC)SDK{@qzJ_17Jv&(>XF?hQAxvX<aXaWE=
+CKR6fw
+
+diff --git app/src/main/res/drawable-xhdpi/ic_left.png app/src/main/res/drawable-xhdpi/ic_left.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..aeea3d2caccd4738eb60d3686d9b0d6e65718671
+GIT binary patch
+literal 164
+zc%17D@N?(olHy`uVBq!ia0vp^1|ZDA1|-9oezpUtY)==*kcwMxukYkNV8Fxdz@KV<
+z)8zIt-cQrTip?20e@u*GW@w0)NY+_;`1`%<mmYeH-DuYje;~0hq;d6!RIWR%`hgEL
+z|9oM+cgR2Xfp-O~%)&3;G9P=~YElFjyBskPH}rGYF%i^OWnh?-Ghe56x|HUdc|dC!
+NJYD@<);T3K0RSRfIx+wN
+
+diff --git app/src/main/res/drawable-mdpi/ic_right.png app/src/main/res/drawable-mdpi/ic_right.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..af7b56a2734c144d652c676a59b9cb9c53178f06
+GIT binary patch
+literal 120
+zc%17D@N?(olHy`uVBq!ia0vp^5+KaM1|%Pp+x`Gj_MR?|Ar-fh6C_v{C;VUt4!+DX
+zD=Hx=$!PMjX$?9HR;n6sXQXj%Vl~;=vQF%RNk@j%NfX~?Cg(F2Cy4OKFfiz)DM>Hd
+S8nFs!6oaR$pUXO@geCxe{v)6O
+
+diff --git app/src/main/res/drawable-mdpi/ic_left.png app/src/main/res/drawable-mdpi/ic_left.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..9919544728627e58f5f38eeafdadecf2107f17a9
+GIT binary patch
+literal 115
+zc%17D@N?(olHy`uVBq!ia0vp^5+KaM1|%Pp+x`GjR-P`7Ar-fh6C_v{CsZ&62M24<
+zlFCa;GMc=s?eY<(l*23Y7<WB%KF>6ZT`*Q@rryaZdXl*!Jxsrt8BDe-%;$Umxfo~)
+NgQu&X%Q~loCIHJrBHRD~
+
+diff --git app/src/main/res/drawable-xxhdpi/ic_left.png app/src/main/res/drawable-xxhdpi/ic_left.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc52e0a87b0eea974c38bd5a1a5474ecb182a524
+GIT binary patch
+literal 198
+zc%17D@N?(olHy`uVBq!ia0vp^9w5xY1|&n@ZgvM!y`C<PAr-gY-tZPYpdjFKu%pR)
+z&aqq>g9D|zRQG7v?LN=U00JAb&;4Arp~Lvtk0}vH1T|35O8zO2LfCJ021{p{`=u_J
+zY*E_i_c(-gS7)&B3$s24Cd(wf%=3Ht7X=>PkabsaQtQoJl~gB{P$v~vClymC6;&q{
+dQLr5g?(hdyi~Xoe6?_5Wdb;|#taD0e0sx(JM8g08
+
