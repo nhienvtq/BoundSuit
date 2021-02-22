@@ -2,13 +2,15 @@
 <resources>
     <color name="colorPrimary">#8fcfd1</color>
     <color name="colorPrimaryDark">#2f2519</color>
-    <color name="colorAccent">#5edfff</color>
+    <color name="colorAccent">#16c79a</color>
     <color name="colorselectedicon">#d32626</color>
     <color name="colorunselectedicon">#e5c0c3</color>
     <color name="backgroundControlcolor">#e7e7de</color>
     <color name="fragmentBackgroundPrimary">#f6edcf</color>
     <color name="tabbgcolor">#fad586</color>
     <color name="colorlight">#222831</color>
+
+    <color name="colorgrey">#222831</color>
 
     <color name="colorbuttonBorder">#adeecf</color>
     <color name="colorbutton">#75cfb8</color>

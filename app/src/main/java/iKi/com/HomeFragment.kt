@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
         triggerButton(binding.RestfulBtn, R.id.action_homeFragment_to_photoFragment)
         triggerButton(binding.lifecycleBtn, R.id.action_homeFragment_to_lifecycleFragment)
         triggerButton(binding.BroadcastReceiverBtn, R.id.action_homeFragment_to_broadcastReceiverFragment)
+        triggerButton(binding.wifiBtn, R.id.action_homeFragment_to_wifiFragment)
     }
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
     private fun triggerButton(view: CardView,  naviagateActionId: Int){

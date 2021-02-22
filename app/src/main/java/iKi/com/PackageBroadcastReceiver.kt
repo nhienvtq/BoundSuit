@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 
-class NetworkChangeReceiver: BroadcastReceiver() {
+class PackageBroadcastReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Toast.makeText(context, "Network is turned ON/OF", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Broadcast receive action", Toast.LENGTH_SHORT).show();
 
     }
 }

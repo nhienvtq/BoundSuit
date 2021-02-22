@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_homeFragment_to_broadcastReceiverFragment"
             app:destination="@id/broadcastReceiverFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_wifiFragment"
+            app:destination="@id/wifiFragment" />
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
@@ -88,4 +91,9 @@
         android:id="@+id/broadcastReceiverFragment"
         android:name="iKi.com.BroadcastReceiverFragment"
         android:label="BroadcastReceiverFragment" />
+    <fragment
+        android:id="@+id/wifiFragment"
+        android:name="iKi.com.WifiFragment"
+        android:label="fragment_wifi"
+        tools:layout="@layout/fragment_wifi" />
 </navigation>
