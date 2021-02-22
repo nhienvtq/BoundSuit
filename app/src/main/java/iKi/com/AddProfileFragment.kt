@@ -186,10 +186,9 @@ class AddProfileFragment : Fragment() {
                 )
                 insProfileViewModel.addProfile(profile)
                 Toast.makeText(context, "Profile added", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_addProfileFragment_to_controlFragment)
+                findNavController().popBackStack()
                 activity?.let { hideSoftKeyboard(it) }
             }
-//            activity?.findViewById<ViewPager2>(R.id.viewPager)?.currentItem = 1
         }
     }
 

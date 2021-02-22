@@ -15,8 +15,8 @@ class FlashLogoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Handler().postDelayed({
-            findNavController().navigate(R.id.action_flashLogoFragment_to_controlFragment)
-        },1000)
+            findNavController().navigate(R.id.action_flashLogoFragment_to_homeFragment)
+        },300)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_flash_logo, container, false)
     }

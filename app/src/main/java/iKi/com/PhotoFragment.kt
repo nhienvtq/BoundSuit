@@ -1,32 +1,25 @@
-package iKi.com.PagerFragments
+package iKi.com
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import coil.load
-import iKi.com.PhotoApiStatus
-import iKi.com.PhotoViewModel
-import iKi.com.R
 import iKi.com.databinding.FragmentPhotoBinding
 import iKi.com.networkRESTful.PhotoModel
-import org.json.JSONArray
 
 
 class PhotoFragment : Fragment() {
     private lateinit var _binding: FragmentPhotoBinding
-    private val binding get() = _binding!!
+    private val binding get() = _binding
     private lateinit var insPhotoViewModel: PhotoViewModel
 
     override fun onCreateView(
@@ -50,8 +43,6 @@ class PhotoFragment : Fragment() {
             binding.loadingImage.visibility = View.VISIBLE
             when (insPhotoViewModel.status.value) {
                 PhotoApiStatus.DONE -> {
-                    binding.loadingImage.visibility = View.INVISIBLE
-                    binding.photoRESTImage.visibility = View.VISIBLE
                     setDataDisplay(0)
                 }
                 PhotoApiStatus.LOADING -> binding.loadingImage.visibility = View.VISIBLE
@@ -60,14 +51,16 @@ class PhotoFragment : Fragment() {
         insPhotoViewModel.model.observe(viewLifecycleOwner, Observer {
             jsonarray = insPhotoViewModel.model.value!!
         })
-
         var translateAnimation: Animation
         binding.rightBtn.setOnClickListener(){
             if (insPhotoViewModel.indexArray < jsonarray?.size!!){
                 insPhotoViewModel.indexArray = insPhotoViewModel.indexArray + 1
                 position = insPhotoViewModel.indexArray
                 setDataDisplay(position)
-                translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_from_right)
+                translateAnimation = AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.translate_from_right
+                )
                 binding.photoRESTImage.startAnimation(translateAnimation)
             } else {
                 Toast.makeText(requireContext(), "last picture reached", Toast.LENGTH_SHORT).show()
@@ -79,7 +72,10 @@ class PhotoFragment : Fragment() {
                 insPhotoViewModel.indexArray = insPhotoViewModel.indexArray - 1
                 position = insPhotoViewModel.indexArray
                 setDataDisplay(position)
-                translateAnimation = AnimationUtils.loadAnimation(context,R.anim.translate_from_left)
+                translateAnimation = AnimationUtils.loadAnimation(
+                    context,
+                    R.anim.translate_from_left
+                )
                 binding.photoRESTImage.startAnimation(translateAnimation)
             } else {
                 Toast.makeText(requireContext(), "first picture reached", Toast.LENGTH_SHORT).show()
@@ -90,9 +86,10 @@ class PhotoFragment : Fragment() {
         binding.viewModel = insPhotoViewModel
     }
 
-    fun setDataDisplay(position: Int){
+    private fun setDataDisplay(position: Int){
+        binding.loadingImage.visibility = View.INVISIBLE
+        binding.photoRESTImage.visibility = View.VISIBLE
         binding.photoRESTImage.load(jsonarray?.get(position)?.getUrl()){
-            size(1000)
         }
         binding.idtextView.setText(jsonarray?.get(position)?.getid())
         binding.typetextView.setText(jsonarray?.get(position)?.getprice())

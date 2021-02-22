@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface ProfileDao {
 
-    @Query("SELECT * FROM profile_table ORDER BY id ASC")
+    @Query("SELECT * FROM profiles_table ORDER BY id ASC")
     fun readAllData():LiveData<List<Profile>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -15,7 +15,7 @@ interface ProfileDao {
     @Delete
     suspend fun delProfile(profile: Profile)
 
-    @Query("DELETE FROM profile_Table")
+    @Query("DELETE FROM profiles_Table")
     suspend fun deleteAllProfile()
 
     @Update

@@ -39,10 +39,8 @@ class PhotoViewModel(): ViewModel() {
                 _status.value = PhotoApiStatus.ERROR
                 _model.value = ArrayList()
             }
+            _status.postValue(_status.value)
         }
     }
 
-//    fun increase(){
-//        indexArray = indexArray + 1
-//    }
 }

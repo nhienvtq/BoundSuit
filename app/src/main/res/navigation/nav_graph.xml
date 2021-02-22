@@ -10,45 +10,82 @@
         android:label="fragment_flash_logo"
         tools:layout="@layout/fragment_flash_logo" >
         <action
-            android:id="@+id/action_flashLogoFragment_to_controlFragment"
-            app:destination="@id/controlFragment" />
+            android:id="@+id/action_flashLogoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/controlFragment"
         android:name="iKi.com.ControlFragment"
         android:label="ControlFragment"
-        tools:layout="@layout/fragment_control">
-        <action
-            android:id="@+id/action_controlFragment_to_addProfileFragment"
-            app:destination="@id/addProfileFragment" />
-        <action
-            android:id="@+id/action_controlFragment_to_updateProfileFragment"
-            app:destination="@id/updateProfileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_control"/>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="iKi.com.PagerFragments.ProfileFragment"
+        android:name="iKi.com.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment"
+            app:popUpTo="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_addProfileFragment"
+            app:destination="@id/addProfileFragment"
+            app:popUpTo="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addProfileFragment"
         android:name="iKi.com.AddProfileFragment"
         android:label="fragment_add_profile"
-        tools:layout="@layout/fragment_add_profile" >
-        <action
-            android:id="@+id/action_addProfileFragment_to_controlFragment"
-            app:destination="@id/controlFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add_profile" />
     <fragment
         android:id="@+id/updateProfileFragment"
         android:name="iKi.com.UpdateProfileFragment"
         android:label="UpdateProfileFragment"
         tools:layout="@layout/fragment_update_profile">
-        <action
-            android:id="@+id/action_updateProfileFragment_to_controlFragment"
-            app:destination="@id/controlFragment" />
         <argument
             android:name="currentProfile"
             app:argType="iKi.com.profileData.Profile" />
     </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="iKi.com.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <argument
+            android:name="photodata"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="iKi.com.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_controlFragment"
+            app:destination="@id/controlFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_photoFragment"
+            app:destination="@id/photoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lifecycleFragment"
+            app:destination="@id/lifecycleFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_broadcastReceiverFragment"
+            app:destination="@id/broadcastReceiverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="iKi.com.PhotoFragment"
+        android:label="PhotoFragment" />
+    <fragment
+        android:id="@+id/lifecycleFragment"
+        android:name="iKi.com.LifecycleFragment"
+        android:label="fragment_lifecycle"
+        tools:layout="@layout/fragment_lifecycle" />
+    <fragment
+        android:id="@+id/broadcastReceiverFragment"
+        android:name="iKi.com.BroadcastReceiverFragment"
+        android:label="BroadcastReceiverFragment" />
 </navigation>

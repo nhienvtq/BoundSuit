@@ -9,4 +9,8 @@
     <color name="fragmentBackgroundPrimary">#f6edcf</color>
     <color name="tabbgcolor">#fad586</color>
     <color name="colorlight">#222831</color>
+
+    <color name="colorbuttonBorder">#adeecf</color>
+    <color name="colorbutton">#75cfb8</color>
+    <color name="colorbuttonPress">#f8f1f1</color>
 </resources>

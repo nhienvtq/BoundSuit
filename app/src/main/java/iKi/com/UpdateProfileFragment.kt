@@ -203,7 +203,8 @@ class UpdateProfileFragment : Fragment() {
                 )
                 insProfileViewModel.updateProfile(profile)
                 Toast.makeText(context, "Profile updated", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_updateProfileFragment_to_controlFragment)
+                findNavController().popBackStack()
+//                findNavController().navigate(R.id.action_updateProfileFragment_to_profileFragment)
                 activity?.let { hideSoftKeyboard(it) }
             }
         }
@@ -215,7 +216,7 @@ class UpdateProfileFragment : Fragment() {
             builder.setPositiveButton("Delete"){_, _ ->
                 insProfileViewModel.delProfile(profile)
                 Toast.makeText(context, "Profile deleted", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_updateProfileFragment_to_controlFragment)
+                findNavController().popBackStack()
                 activity?.let { hideSoftKeyboard(it) }
             }
             builder.setNegativeButton("Cancel"){ _, _  ->}

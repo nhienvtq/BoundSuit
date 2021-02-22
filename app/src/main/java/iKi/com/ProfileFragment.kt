@@ -1,13 +1,11 @@
-package iKi.com.PagerFragments
+package iKi.com
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -15,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import iKi.com.R
 import iKi.com.databinding.FragmentProfileBinding
 import iKi.com.profileData.OnProfileItemClickListener
 import iKi.com.profileData.Profile
@@ -48,7 +45,7 @@ class ProfileFragment : Fragment(), OnProfileItemClickListener {
         }
         //navigate to add fragment
         binding.floatingAddButton.setOnClickListener(){
-            findNavController().navigate(R.id.action_controlFragment_to_addProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_addProfileFragment)
             binding.floatingAddButton.visibility = View.INVISIBLE
             binding.floatingDelButton.visibility = View.INVISIBLE
             optionBtnClick = false

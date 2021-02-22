@@ -13,8 +13,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import iKi.com.ControlFragmentDirections
 import iKi.com.ImageBitmapString
+import iKi.com.ProfileFragmentDirections
 import iKi.com.R
 import iKi.com.databinding.ProfileRecyclerviewSectionBinding
 
@@ -61,7 +61,7 @@ class profileRecyclerViewAdapter(private var clickListener: OnProfileItemClickLi
         }
 
         binding.editimageBtn.setOnClickListener(){
-            val action = ControlFragmentDirections.actionControlFragmentToUpdateProfileFragment(
+            val action = ProfileFragmentDirections.actionProfileFragmentToUpdateProfileFragment(
                 currentItem
             )
             holder.itemView.findNavController().navigate(action)
