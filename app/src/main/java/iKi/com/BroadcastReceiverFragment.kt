@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import iKi.com.databinding.FragmentBroadcastReceiverBinding
@@ -42,7 +44,8 @@ class BroadcastReceiverFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         triggerButton(binding.sendactionBtn)
         triggerButton(binding.broadcastBtn)
-        triggerButton(binding.stoBRBtn)
+        triggerButton(binding.stopBRBtn)
+        triggerButton(binding.networkBRBtn)
     }
 
     private fun startBroadcast(){
@@ -59,6 +62,27 @@ class BroadcastReceiverFragment : Fragment() {
 
     private fun sendAction(){
         requireContext().sendBroadcast(intent)
+    }
+
+    private var isNetworkBroadcast = false
+    @SuppressLint("ResourceType")
+    private fun toggleNetworklistener(){
+        val receiver = NetworkBroadcastReceiver()
+        val intentAction = "android.net.conn.CONNECTIVITY_CHANGE"
+        val intentFilter = IntentFilter(intentAction)
+        if (!isNetworkBroadcast){
+            requireContext().registerReceiver(receiver, intentFilter)
+            isNetworkBroadcast = true
+            binding.cardView4.backgroundTintList = ColorStateList.valueOf(Color.parseColor(resources.getString(R.color.colorselectedicon)))
+        } else {
+            try {
+                requireContext().unregisterReceiver(receiver)
+            } catch (e: IllegalArgumentException) {
+                e.printStackTrace()
+            }
+            isNetworkBroadcast = false
+            binding.cardView4.backgroundTintList = ColorStateList.valueOf(Color.parseColor(resources.getString(R.color.colorbuttonBorder)))
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
@@ -78,8 +102,9 @@ class BroadcastReceiverFragment : Fragment() {
                         ColorStateList.valueOf(Color.parseColor(resources.getString(R.color.colorbutton)))
                     when (view) {
                         binding.broadcastBtn -> startBroadcast()
-                        binding.stoBRBtn -> stopBroadcast()
+                        binding.stopBRBtn -> stopBroadcast()
                         binding.sendactionBtn -> sendAction()
+                        binding.networkBRBtn -> toggleNetworklistener()
                     }
                 }
             }

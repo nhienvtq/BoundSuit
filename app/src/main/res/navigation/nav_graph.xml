@@ -77,6 +77,15 @@
         <action
             android:id="@+id/action_homeFragment_to_wifiFragment"
             app:destination="@id/wifiFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bluetoothFragment"
+            app:destination="@id/bluetoothFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_implicitIntentFragment"
+            app:destination="@id/implicitIntentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_serviceFragment"
+            app:destination="@id/serviceFragment" />
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
@@ -96,4 +105,19 @@
         android:name="iKi.com.WifiFragment"
         android:label="fragment_wifi"
         tools:layout="@layout/fragment_wifi" />
+    <fragment
+        android:id="@+id/bluetoothFragment"
+        android:name="iKi.com.BluetoothFragment"
+        android:label="fragment_bluetooth"
+        tools:layout="@layout/fragment_bluetooth" />
+    <fragment
+        android:id="@+id/implicitIntentFragment"
+        android:name="iKi.com.ImplicitIntentFragment"
+        android:label="fragment_implicit_intent"
+        tools:layout="@layout/fragment_implicit_intent" />
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="iKi.com.ServiceFragment"
+        android:label="fragment_service"
+        tools:layout="@layout/fragment_service" />
 </navigation>

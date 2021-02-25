@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/fragmentBackgroundPrimary">
+        android:background="@color/fragmentBackgroundPrimary"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/idtextView"
@@ -31,8 +32,8 @@
         <ImageView
             android:id="@+id/photoRESTImage"
             imageUrl="@(property.imgSrcUrl"
-            android:layout_width="200sp"
-            android:layout_height="200sp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_marginTop="50dp"
             android:src="@drawable/ic_baseline_add_photo_alternate_24"
             android:visibility="invisible"
@@ -67,6 +68,19 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pricetextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/imageUrltextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/typetextView"
             app:layout_constraintVertical_bias="0.0" />
 
         <ProgressBar

@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import coil.load
+import com.bumptech.glide.Glide
 import iKi.com.databinding.FragmentPhotoBinding
 import iKi.com.networkRESTful.PhotoModel
 
@@ -78,7 +80,7 @@ class PhotoFragment : Fragment() {
                 )
                 binding.photoRESTImage.startAnimation(translateAnimation)
             } else {
-                Toast.makeText(requireContext(), "first picture reached", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "first item reached", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -89,10 +91,10 @@ class PhotoFragment : Fragment() {
     private fun setDataDisplay(position: Int){
         binding.loadingImage.visibility = View.INVISIBLE
         binding.photoRESTImage.visibility = View.VISIBLE
-        binding.photoRESTImage.load(jsonarray?.get(position)?.getUrl()){
-        }
-        binding.idtextView.setText(jsonarray?.get(position)?.getid())
-        binding.typetextView.setText(jsonarray?.get(position)?.getprice())
-        binding.pricetextView.setText(jsonarray?.get(position)?.gettype())
+        binding.photoRESTImage.load(jsonarray?.get(position)?.getUrl()){}
+        binding.idtextView.text = jsonarray?.get(position)?.getid()
+        binding.typetextView.text = jsonarray?.get(position)?.getprice()
+        binding.pricetextView.text = jsonarray?.get(position)?.gettype()
+        binding.imageUrltextView.text = jsonarray?.get(position)?.getUrl()
     }
 }

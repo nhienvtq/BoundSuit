@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".BluetoothFragment">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/bluetoothSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:width="180sp"
+            android:checked="true"
+            android:enabled="true"
+            android:minWidth="30dp"
+            android:text="Bluetooth"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:thumb="@drawable/wifiswitch_thumblayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:switchMinWidth="150sp"
+            app:track="@drawable/wifiswitch_tracklayout"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <ImageView
+            android:id="@+id/bluetoothimageView"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_marginTop="8dp"
+            android:alpha="1"
+            android:src="@drawable/ic_bluetooth"
+            app:layout_constraintEnd_toEndOf="@+id/bluetoothSwitch"
+            app:layout_constraintStart_toStartOf="@+id/bluetoothSwitch"
+            app:layout_constraintTop_toBottomOf="@+id/bluetoothSwitch"
+            app:tint="@color/colorAccent" />
+
+        <ListView
+            android:id="@+id/pairedListview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bluetoothimageView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

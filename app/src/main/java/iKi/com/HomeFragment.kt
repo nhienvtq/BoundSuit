@@ -1,9 +1,6 @@
 package iKi.com
 
 import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.NotificationManager
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -12,14 +9,10 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.cardview.widget.CardView
-import androidx.core.app.NotificationCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import iKi.com.R
 import iKi.com.databinding.FragmentHomeBinding
-import iKi.com.databinding.FragmentPhotoBinding
 
 class HomeFragment : Fragment() {
 
@@ -45,6 +38,9 @@ class HomeFragment : Fragment() {
         triggerButton(binding.lifecycleBtn, R.id.action_homeFragment_to_lifecycleFragment)
         triggerButton(binding.BroadcastReceiverBtn, R.id.action_homeFragment_to_broadcastReceiverFragment)
         triggerButton(binding.wifiBtn, R.id.action_homeFragment_to_wifiFragment)
+        triggerButton(binding.bluetoothBtn, R.id.action_homeFragment_to_bluetoothFragment)
+        triggerButton(binding.implicitIntentBtn, R.id.action_homeFragment_to_implicitIntentFragment)
+        triggerButton(binding.serviceBtn, R.id.action_homeFragment_to_serviceFragment)
     }
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
     private fun triggerButton(view: CardView,  naviagateActionId: Int){

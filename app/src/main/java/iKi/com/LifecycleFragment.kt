@@ -44,7 +44,6 @@ class LifecycleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        notifyAlert("viewCreated", "Notify onViewCreated")
         binding.notifyTextView.setOnClickListener(){
             val startMain = Intent(Intent.ACTION_MAIN)
             startMain.addCategory(Intent.CATEGORY_HOME)
@@ -97,6 +96,11 @@ class LifecycleFragment : Fragment() {
             notificationManager.notify(1234, builder.build())
         }
 
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        notifyAlert("Create", "Notify onCreate")
     }
 
     override fun onStart() {
