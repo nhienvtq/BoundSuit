@@ -92,9 +92,7 @@ class LifecycleFragment : Fragment() {
                 )
                 .setContentIntent(pendingIntent)
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES. JELLY_BEAN){
-            notificationManager.notify(1234, builder.build())
-        }
+        notificationManager.notify(1234, builder.build())
 
     }
 
