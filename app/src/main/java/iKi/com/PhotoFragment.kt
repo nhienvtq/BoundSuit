@@ -48,6 +48,7 @@ class PhotoFragment : Fragment() {
                     setDataDisplay(0)
                 }
                 PhotoApiStatus.LOADING -> binding.loadingImage.visibility = View.VISIBLE
+                else -> {}
             }
         })
         insPhotoViewModel.model.observe(viewLifecycleOwner, Observer {
