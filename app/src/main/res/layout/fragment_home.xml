@@ -38,6 +38,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -77,6 +78,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -116,6 +118,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -155,6 +158,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -194,6 +198,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -233,6 +238,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -272,6 +278,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -311,6 +318,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -350,6 +358,7 @@
                     app:cardMaxElevation="24dp">
 
                     <TextView
+                        style="@style/textViewStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="8dp"
@@ -360,5 +369,44 @@
 
         </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/colorbuttonBorder"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView9"
+            app:layout_constraintVertical_bias="0.0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/foregroundBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorbutton"
+                    app:cardCornerRadius="8dp"
+                    app:cardMaxElevation="24dp">
+
+                    <TextView
+                        style="@style/textViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        android:text="foreground service"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

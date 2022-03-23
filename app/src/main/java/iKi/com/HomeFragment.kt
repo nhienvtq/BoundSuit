@@ -41,6 +41,7 @@ class HomeFragment : Fragment() {
         triggerButton(binding.bluetoothBtn, R.id.action_homeFragment_to_bluetoothFragment)
         triggerButton(binding.implicitIntentBtn, R.id.action_homeFragment_to_implicitIntentFragment)
         triggerButton(binding.serviceBtn, R.id.action_homeFragment_to_serviceFragment)
+        triggerButton(binding.foregroundBtn,R.id.action_homeFragment_to_foregroundServiceFragment)
     }
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
     private fun triggerButton(view: CardView,  naviagateActionId: Int){
