@@ -8,7 +8,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "iKi.com"
+        applicationId "iKi.com.boundsuit1"
         minSdkVersion 25
         targetSdkVersion 31
         versionCode 1

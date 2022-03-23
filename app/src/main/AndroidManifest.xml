@@ -35,6 +35,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="PackageBroadcastReceiver"
+            android:exported="true"
+           >
+            <intent-filter>
+                <action android:name="iKi.com.action"/>
+            </intent-filter>
+        </receiver>
+
         <service android:name=".notification.FService"
             android:exported="false"
             android:enabled="true"/>
