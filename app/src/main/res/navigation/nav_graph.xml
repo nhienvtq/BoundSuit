@@ -89,6 +89,9 @@
         <action
             android:id="@+id/action_homeFragment_to_foregroundServiceFragment"
             app:destination="@id/foregroundServiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_customizeViewFragment"
+            app:destination="@id/customizeViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
@@ -127,4 +130,8 @@
         android:id="@+id/foregroundServiceFragment"
         android:name="iKi.com.notification.ForegroundServiceFragment"
         android:label="ForegroundServiceFragment" />
+    <fragment
+        android:id="@+id/customizeViewFragment"
+        android:name="iKi.com.CustomizeViewFragment"
+        android:label="CustomizeViewFragment" />
 </navigation>

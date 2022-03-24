@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Androidproject/BoundSuit/NodeSpinner/src/main/res/layout/node_spinner_layout.xml" value="0.5" />
+        <entry key="..\:/Androidproject/BoundSuit/app/src/main/res/layout/fragment_customize_view.xml" value="0.17638266068759342" />
         <entry key="..\:/Androidproject/BoundSuit/app/src/main/res/layout/fragment_foreground_service.xml" value="0.23333333333333334" />
         <entry key="..\:/Androidproject/BoundSuit/app/src/main/res/layout/fragment_home.xml" value="0.22" />
       </map>

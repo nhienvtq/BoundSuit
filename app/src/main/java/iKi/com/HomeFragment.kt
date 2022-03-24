@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
         triggerButton(binding.implicitIntentBtn, R.id.action_homeFragment_to_implicitIntentFragment)
         triggerButton(binding.serviceBtn, R.id.action_homeFragment_to_serviceFragment)
         triggerButton(binding.foregroundBtn,R.id.action_homeFragment_to_foregroundServiceFragment)
+        triggerButton(binding.customizeViewBtn,R.id.action_homeFragment_to_customizeViewFragment)
     }
     @SuppressLint("ClickableViewAccessibility", "ResourceType")
     private fun triggerButton(view: CardView,  naviagateActionId: Int){

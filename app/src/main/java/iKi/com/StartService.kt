@@ -52,7 +52,7 @@ class StartService: Service() {
         Toast.makeText(this,"onStartCommand: " + toastString, Toast.LENGTH_SHORT).show()
         mediaPlayer.start()
 
-        notifyAlert("start service", "background service is running")
+//        notifyAlert("start service", "background service is running")
 
 
         return START_STICKY
